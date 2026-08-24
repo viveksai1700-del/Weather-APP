@@ -3,75 +3,73 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Weather App</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
 
-    <main class="weather-app">
+    <div class="weather-app">
 
-        <!-- Header -->
+        <!-- HEADER -->
         <header class="app-header">
 
-            <div class="brand-mark" aria-hidden="true">
+            <div
+                class="brand-mark"
+                aria-hidden="true"
+            >
                 W
             </div>
 
-            <div class="header-text">
-                <p class="eyebrow">LIVE WEATHER</p>
-                <h1>Weather, at a glance.</h1>
+            <div>
+                <p class="eyebrow">
+                    LIVE CONDITIONS
+                </p>
+
+                <h1>
+                    Weather, at a glance.
+                </h1>
             </div>
 
         </header>
 
 
-        <!-- Search -->
-        <section class="search-section">
+        <!-- SEARCH -->
+        <div class="search-box">
 
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="cityInput"
-                    placeholder="Enter city name..."
-                    autocomplete="off"
-                >
-
-                <button id="searchBtn" onclick="getWeather()">
-                    <span aria-hidden="true">⌕</span>
-                    Search
-                </button>
-
-            </div>
+            <input
+                type="text"
+                id="cityInput"
+                placeholder="Enter city name..."
+                autocomplete="off"
+            >
 
             <button
-                class="location-btn"
-                id="locationBtn"
-                onclick="getCurrentLocation()"
+                onclick="getWeather()"
             >
-                <span aria-hidden="true">⌖</span>
-                Use My Location
+                <span aria-hidden="true">⌕</span>
+                Search
             </button>
 
-        </section>
+        </div>
 
 
-        <!-- Loading -->
-        <div id="loadingMessage" class="loading-message"></div>
+        <!-- WEATHER RESULT -->
+        <div
+            id="weatherResult"
+            class="weather-result"
+        >
 
-
-        <!-- Error -->
-        <div id="errorMessage" class="error-message"></div>
-
-
-        <!-- Current Weather -->
-        <section id="weatherResult" class="weather-result">
-
-            <!-- Location Heading -->
+            <!-- LOCATION -->
             <div class="result-heading">
 
                 <div>
@@ -84,66 +82,66 @@
                         Search for a city
                     </h2>
 
-                    <p id="dateTime">
-                        --
-                    </p>
-
                 </div>
 
                 <span
-                    class="live-indicator"
-                    aria-label="Live weather data"
-                >
-                    <span class="live-dot"></span>
-                    LIVE
-                </span>
+                    class="live-dot"
+                    aria-label="Live data"
+                ></span>
 
             </div>
 
 
-            <!-- Weather Hero -->
+            <p id="dateTime"></p>
+
+
+            <!-- MAIN WEATHER HERO -->
             <div class="weather-hero">
 
                 <div
                     class="weather-icon"
                     id="weatherIcon"
-                    aria-hidden="true"
                 >
-                    <span id="weatherSymbol">--</span>
+
+                    <span
+                        id="weatherSymbol"
+                        aria-hidden="true"
+                    >
+                        --
+                    </span>
+
                 </div>
+
 
                 <div class="temperature-section">
 
-                    <div class="temperature-row">
+                    <h3 id="temperature">
+                        --°C
+                    </h3>
 
-                        <h3 id="temperature">
-                            --°C
-                        </h3>
 
-                        <div class="unit-toggle">
+                    <div class="unit-toggle">
 
-                            <button
-                                id="celsiusBtn"
-                                class="unit-btn active"
-                                onclick="setUnit('C')"
-                            >
-                                °C
-                            </button>
+                        <button
+                            id="celsiusBtn"
+                            onclick="setUnit('C')"
+                        >
+                            °C
+                        </button>
 
-                            <button
-                                id="fahrenheitBtn"
-                                class="unit-btn"
-                                onclick="setUnit('F')"
-                            >
-                                °F
-                            </button>
-
-                        </div>
+                        <button
+                            id="fahrenheitBtn"
+                            onclick="setUnit('F')"
+                        >
+                            °F
+                        </button>
 
                     </div>
 
+
                     <p id="description">
-                        Weather information will appear here
+                        Weather information will
+                        appear here
                     </p>
 
                 </div>
@@ -151,96 +149,108 @@
             </div>
 
 
-            <!-- Weather Statistics -->
+            <!-- WEATHER DETAILS -->
             <div class="weather-details">
 
-                <div class="detail">
+                <div
+                    class="detail"
+                    data-icon="humidity"
+                >
 
-                    <div class="detail-icon">
-                        💧
-                    </div>
+                    <span>
+                        Humidity
+                    </span>
 
-                    <div>
-                        <span>Humidity</span>
-                        <p id="humidity">--%</p>
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        💨
-                    </div>
-
-                    <div>
-                        <span>Wind Speed</span>
-                        <p id="wind">-- km/h</p>
-                    </div>
+                    <p id="humidity">
+                        --%
+                    </p>
 
                 </div>
 
 
-                <div class="detail">
+                <div
+                    class="detail"
+                    data-icon="wind"
+                >
 
-                    <div class="detail-icon">
-                        🌡️
-                    </div>
+                    <span>
+                        Wind Speed
+                    </span>
 
-                    <div>
-                        <span>Feels Like</span>
-                        <p id="feelsLike">--°C</p>
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-icon">
-                        👁️
-                    </div>
-
-                    <div>
-                        <span>Visibility</span>
-                        <p id="visibility">-- km</p>
-                    </div>
+                    <p id="wind">
+                        -- km/h
+                    </p>
 
                 </div>
 
 
-                <div class="detail">
+                <div
+                    class="detail"
+                    data-icon="feels"
+                >
 
-                    <div class="detail-icon">
-                        🧭
-                    </div>
+                    <span>
+                        Feels Like
+                    </span>
 
-                    <div>
-                        <span>Wind Direction</span>
-                        <p id="windDirection">--</p>
-                    </div>
+                    <p id="feelsLike">
+                        --°C
+                    </p>
 
                 </div>
 
 
-                <div class="detail">
+                <div
+                    class="detail"
+                    data-icon="visibility"
+                >
 
-                    <div class="detail-icon">
-                        ☀️
-                    </div>
+                    <span>
+                        Visibility
+                    </span>
 
-                    <div>
-                        <span>UV Index</span>
-                        <p id="uvIndex">--</p>
-                    </div>
+                    <p id="visibility">
+                        -- km
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="detail"
+                    data-icon="direction"
+                >
+
+                    <span>
+                        Wind Direction
+                    </span>
+
+                    <p id="windDirection">
+                        --
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="detail"
+                    data-icon="uv"
+                >
+
+                    <span>
+                        UV Index
+                    </span>
+
+                    <p id="uvIndex">
+                        --
+                    </p>
 
                 </div>
 
             </div>
 
 
-            <!-- Sunrise / Sunset -->
+            <!-- SUNRISE / SUNSET -->
             <section class="sun-section">
 
                 <div class="sun-card">
@@ -250,8 +260,15 @@
                     </span>
 
                     <div>
-                        <span>Sunrise</span>
-                        <strong id="sunrise">--:--</strong>
+
+                        <span>
+                            Sunrise
+                        </span>
+
+                        <strong id="sunrise">
+                            --:--
+                        </strong>
+
                     </div>
 
                 </div>
@@ -264,8 +281,15 @@
                     </span>
 
                     <div>
-                        <span>Sunset</span>
-                        <strong id="sunset">--:--</strong>
+
+                        <span>
+                            Sunset
+                        </span>
+
+                        <strong id="sunset">
+                            --:--
+                        </strong>
+
                     </div>
 
                 </div>
@@ -273,89 +297,77 @@
             </section>
 
 
-            <!-- Hourly Forecast -->
+            <!-- HOURLY FORECAST -->
             <section class="forecast-section">
 
                 <div class="section-heading">
-
-                    <div>
-                        <p class="eyebrow">
-                            FORECAST
-                        </p>
-
-                        <h3>
-                            Hourly Forecast
-                        </h3>
-                    </div>
-
-                </div>
-
-                <div
-                    class="hourly-forecast"
-                    id="hourlyForecast"
-                >
-                    <!-- Hourly forecast generated by JavaScript -->
-                </div>
-
-            </section>
-
-
-            <!-- Daily Forecast -->
-            <section class="forecast-section">
-
-                <div class="section-heading">
-
-                    <div>
-                        <p class="eyebrow">
-                            NEXT FEW DAYS
-                        </p>
-
-                        <h3>
-                            5-Day Forecast
-                        </h3>
-                    </div>
-
-                </div>
-
-                <div
-                    class="daily-forecast"
-                    id="dailyForecast"
-                >
-                    <!-- Daily forecast generated by JavaScript -->
-                </div>
-
-            </section>
-
-        </section>
-
-
-        <!-- Recent Searches -->
-        <section class="recent-searches">
-
-            <div class="section-heading">
-
-                <div>
 
                     <p class="eyebrow">
-                        HISTORY
+                        NEXT HOURS
                     </p>
 
                     <h3>
-                        Recent Searches
+                        Hourly Forecast
                     </h3>
 
                 </div>
 
-            </div>
 
-            <ul id="recentCities">
-                <!-- Recent cities generated by JavaScript -->
-            </ul>
+                <div
+                    id="hourlyForecast"
+                    class="hourly-forecast"
+                ></div>
+
+            </section>
+
+
+            <!-- 5 DAY FORECAST -->
+            <section class="forecast-section">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        UPCOMING DAYS
+                    </p>
+
+                    <h3>
+                        5-Day Forecast
+                    </h3>
+
+                </div>
+
+
+                <div
+                    id="dailyForecast"
+                    class="daily-forecast"
+                ></div>
+
+            </section>
+
+        </div>
+
+
+        <!-- LOADING -->
+        <p id="loadingMessage"></p>
+
+
+        <!-- ERROR -->
+        <p id="errorMessage"></p>
+
+
+        <!-- RECENT SEARCHES -->
+        <section class="recent-searches">
+
+            <h3>
+                Recent Searches
+            </h3>
+
+            <ul id="recentCities"></ul>
 
         </section>
 
 
-        <!-- Footer -->
+        <!-- FOOTER -->
         <footer>
 
             <p>
@@ -368,7 +380,7 @@
 
         </footer>
 
-    </main>
+    </div>
 
 
     <script src="script.js"></script>

@@ -15,10 +15,15 @@
 
     --glass: rgba(255, 255, 255, 0.075);
     --glass-strong: rgba(255, 255, 255, 0.11);
+    --glass-soft: rgba(255, 255, 255, 0.045);
 
     --border: rgba(255, 255, 255, 0.12);
+    --border-soft: rgba(255, 255, 255, 0.07);
 
     --shadow: rgba(0, 0, 0, 0.42);
+
+    --blue: #38bdf8;
+    --purple: #6366f1;
 }
 
 
@@ -36,8 +41,6 @@ body {
     align-items: flex-start;
 
     position: relative;
-
-    isolation: isolate;
 
     overflow-x: hidden;
 
@@ -64,18 +67,18 @@ body {
         ),
         linear-gradient(
             135deg,
-            #06101d,
+            #06101d 0%,
             #0a1829 50%,
-            #0c1627
+            #0c1627 100%
         );
 
     transition:
-        background 1.4s ease;
+        background 1.5s ease;
 }
 
 
 /* =========================================================
-   ATMOSPHERIC LIGHT
+   ANIMATED ATMOSPHERIC LIGHT
    ========================================================= */
 
 body::before,
@@ -91,7 +94,7 @@ body::after {
 
     pointer-events: none;
 
-    z-index: 0;
+    z-index: -2;
 
     filter: blur(110px);
 
@@ -143,27 +146,7 @@ body::after {
 
 
 /* =========================================================
-   WEATHER PARTICLE LAYER
-   ========================================================= */
-
-#weatherParticles {
-    position: fixed;
-
-    inset: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    overflow: hidden;
-
-    pointer-events: none;
-
-    z-index: 1;
-}
-
-
-/* =========================================================
-   CLEAR WEATHER
+   WEATHER BACKGROUNDS
    ========================================================= */
 
 body.clear {
@@ -194,8 +177,7 @@ body.clear::before {
     top: -170px;
     left: 50%;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
     background:
         rgba(251, 191, 36, 0.25);
@@ -225,10 +207,6 @@ body.clear::before {
 }
 
 
-/* =========================================================
-   CLOUDY WEATHER
-   ========================================================= */
-
 body.cloudy {
     background:
         radial-gradient(
@@ -255,11 +233,10 @@ body.cloudy::before {
     background:
         rgba(148, 163, 184, 0.12);
 
-    filter:
-        blur(55px);
+    filter: blur(55px);
 
     animation:
-        cloudGlow 20s linear infinite;
+        cloudMove 20s linear infinite;
 }
 
 
@@ -273,45 +250,36 @@ body.cloudy::after {
     background:
         rgba(203, 213, 225, 0.08);
 
-    filter:
-        blur(60px);
+    filter: blur(60px);
 
     animation:
-        cloudGlowReverse 24s linear infinite;
+        cloudMoveReverse 24s linear infinite;
 }
 
 
-@keyframes cloudGlow {
+@keyframes cloudMove {
 
     from {
-        transform:
-            translateX(-100px);
+        transform: translateX(-100px);
     }
 
     to {
-        transform:
-            translateX(1000px);
+        transform: translateX(1000px);
     }
 }
 
 
-@keyframes cloudGlowReverse {
+@keyframes cloudMoveReverse {
 
     from {
-        transform:
-            translateX(100px);
+        transform: translateX(100px);
     }
 
     to {
-        transform:
-            translateX(-1000px);
+        transform: translateX(-1000px);
     }
 }
 
-
-/* =========================================================
-   RAIN WEATHER
-   ========================================================= */
 
 body.rain {
     background:
@@ -335,7 +303,7 @@ body.rain {
 
 
 body.rain::before {
-    width: 400px;
+    width: 300px;
     height: 650px;
 
     top: -180px;
@@ -344,8 +312,7 @@ body.rain::before {
     background:
         rgba(56, 189, 248, 0.08);
 
-    filter:
-        blur(70px);
+    filter: blur(70px);
 
     animation:
         rainGlow 4s ease-in-out infinite alternate;
@@ -353,27 +320,35 @@ body.rain::before {
 
 
 body.rain::after {
-    width: 500px;
-    height: 500px;
+    inset: 0;
 
-    right: -200px;
-    bottom: -250px;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0;
+
+    filter: none;
+
+    opacity: 0.28;
 
     background:
-        rgba(37, 99, 235, 0.08);
-
-    filter:
-        blur(100px);
+        repeating-linear-gradient(
+            110deg,
+            transparent 0px,
+            transparent 10px,
+            rgba(147, 197, 253, 0.10) 11px,
+            transparent 12px
+        );
 
     animation:
-        rainGlowReverse 5s ease-in-out infinite alternate;
+        rainFall 0.8s linear infinite;
 }
 
 
 @keyframes rainGlow {
 
     from {
-        opacity: 0.2;
+        opacity: 0.25;
     }
 
     to {
@@ -382,27 +357,17 @@ body.rain::after {
 }
 
 
-@keyframes rainGlowReverse {
+@keyframes rainFall {
 
     from {
-        opacity: 0.15;
-
-        transform:
-            scale(0.9);
+        transform: translateY(-80px);
     }
 
     to {
-        opacity: 0.5;
-
-        transform:
-            scale(1.15);
+        transform: translateY(100px);
     }
 }
 
-
-/* =========================================================
-   SNOW WEATHER
-   ========================================================= */
 
 body.snow {
     background:
@@ -421,55 +386,86 @@ body.snow {
 
 
 body.snow::before {
-    width: 500px;
-    height: 500px;
+    inset: 0;
 
-    top: -200px;
-    left: 20%;
+    width: 100%;
+    height: 100%;
 
-    background:
-        rgba(186, 230, 253, 0.10);
+    border-radius: 0;
 
-    filter:
-        blur(90px);
+    filter: none;
+
+    opacity: 0.3;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.8) 1px,
+            transparent 2px
+        );
+
+    background-size:
+        45px 45px;
 
     animation:
-        snowGlow 6s ease-in-out infinite alternate;
+        snowFall 12s linear infinite;
 }
 
 
 body.snow::after {
-    width: 400px;
-    height: 400px;
+    inset: -50px;
 
-    right: -150px;
-    bottom: -200px;
+    width: 100%;
+    height: 100%;
 
-    background:
-        rgba(125, 211, 252, 0.08);
+    border-radius: 0;
 
-    filter:
-        blur(100px);
+    filter: none;
+
+    opacity: 0.18;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.7) 1px,
+            transparent 2px
+        );
+
+    background-size:
+        70px 70px;
+
+    animation:
+        snowFallReverse 18s linear infinite;
 }
 
 
-@keyframes snowGlow {
+@keyframes snowFall {
 
     from {
-        transform:
-            scale(0.9);
+        background-position:
+            0 0;
     }
 
     to {
-        transform:
-            scale(1.12);
+        background-position:
+            50px 500px;
     }
 }
 
 
-/* =========================================================
-   STORM WEATHER
-   ========================================================= */
+@keyframes snowFallReverse {
+
+    from {
+        background-position:
+            0 0;
+    }
+
+    to {
+        background-position:
+            -70px 600px;
+    }
+}
+
 
 body.storm {
     background:
@@ -477,11 +473,6 @@ body.storm {
             circle at 70% 15%,
             rgba(139, 92, 246, 0.24),
             transparent 28%
-        ),
-        radial-gradient(
-            circle at 15% 80%,
-            rgba(30, 64, 175, 0.15),
-            transparent 32%
         ),
         linear-gradient(
             135deg,
@@ -502,18 +493,27 @@ body.storm::before {
 
 
 body.storm::after {
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0;
+
+    filter: none;
+
     background:
-        rgba(30, 64, 175, 0.10);
+        rgba(255, 255, 255, 0);
 
     animation:
-        stormGlowReverse 6s ease-in-out infinite alternate;
+        lightning 8s infinite;
 }
 
 
 @keyframes stormGlow {
 
     from {
-        opacity: 0.15;
+        opacity: 0.2;
     }
 
     to {
@@ -522,29 +522,36 @@ body.storm::after {
 }
 
 
-@keyframes stormGlowReverse {
+@keyframes lightning {
 
-    from {
-        opacity: 0.10;
+    0%,
+    86%,
+    90%,
+    100% {
+        background:
+            rgba(255, 255, 255, 0);
     }
 
-    to {
-        opacity: 0.35;
+    87% {
+        background:
+            rgba(255, 255, 255, 0.08);
+    }
+
+    88% {
+        background:
+            rgba(255, 255, 255, 0.015);
     }
 }
 
 
 /* =========================================================
-   MAIN WEATHER APP
+   MAIN DASHBOARD
    ========================================================= */
 
 .weather-app {
     position: relative;
 
-    z-index: 2;
-
-    width:
-        min(1120px, 94vw);
+    width: min(1120px, 94vw);
 
     max-width: 1120px;
 
@@ -572,8 +579,7 @@ body.storm::after {
 
     box-shadow:
         0 40px 110px var(--shadow),
-        inset 0 1px 0
-        rgba(255, 255, 255, 0.10);
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
     animation:
         appEntrance 0.8s
@@ -663,14 +669,11 @@ body.storm::after {
         );
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.14);
+        1px solid rgba(255, 255, 255, 0.14);
 
     box-shadow:
-        0 14px 35px
-        rgba(0, 0, 0, 0.25),
-        inset 0 1px 0
-        rgba(255, 255, 255, 0.12);
+        0 14px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
     font-size: 25px;
 
@@ -688,12 +691,11 @@ body.storm::after {
         rotate(-4deg);
 
     box-shadow:
-        0 18px 40px
-        rgba(0, 0, 0, 0.32);
+        0 18px 40px rgba(0, 0, 0, 0.32);
 }
 
 
-.weather-app h1 {
+.header-text h1 {
     font-size:
         clamp(28px, 4vw, 38px);
 
@@ -721,6 +723,11 @@ body.storm::after {
    SEARCH
    ========================================================= */
 
+.search-section {
+    margin-bottom: 32px;
+}
+
+
 .search-box {
     display: flex;
 
@@ -728,16 +735,16 @@ body.storm::after {
 
     padding: 6px;
 
-    margin-bottom: 28px;
-
     border-radius: 17px;
 
     background:
         rgba(0, 0, 0, 0.20);
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.08);
+        1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 
@@ -797,8 +804,7 @@ body.storm::after {
     cursor: pointer;
 
     box-shadow:
-        0 8px 25px
-        rgba(59, 130, 246, 0.22);
+        0 8px 25px rgba(59, 130, 246, 0.22);
 
     transition:
         transform 0.3s ease,
@@ -815,8 +821,7 @@ body.storm::after {
         brightness(1.1);
 
     box-shadow:
-        0 13px 32px
-        rgba(59, 130, 246, 0.34);
+        0 13px 32px rgba(59, 130, 246, 0.34);
 }
 
 
@@ -826,47 +831,75 @@ body.storm::after {
 }
 
 
+.location-btn {
+    margin-top: 11px;
+
+    padding: 8px 14px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.045);
+
+    color:
+        rgba(226, 232, 240, 0.75);
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition:
+        all 0.3s ease;
+}
+
+
+.location-btn:hover {
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    color: white;
+}
+
+
 /* =========================================================
-   STATUS MESSAGES
+   STATUS
    ========================================================= */
 
-#loadingMessage,
-#loading-message {
+.loading-message,
+.error-message {
     min-height: 20px;
 
-    margin-top: 10px;
+    margin: 8px 0;
 
     text-align: center;
-
-    color:
-        rgba(186, 230, 253, 0.85);
 
     font-size: 12px;
 }
 
 
-#errorMessage,
-#error-message {
-    min-height: 20px;
+.loading-message {
+    color:
+        rgba(186, 230, 253, 0.85);
+}
 
-    margin-top: 7px;
 
-    text-align: center;
-
+.error-message {
     color:
         rgba(254, 202, 202, 0.9);
-
-    font-size: 12px;
 }
 
 
 /* =========================================================
-   WEATHER RESULT
+   CURRENT WEATHER
    ========================================================= */
 
 .weather-result {
-    color: white;
-
     animation:
         weatherReveal 0.7s
         cubic-bezier(
@@ -896,10 +929,6 @@ body.storm::after {
 }
 
 
-/* =========================================================
-   RESULT HEADING
-   ========================================================= */
-
 .result-heading {
     display: flex;
 
@@ -909,7 +938,7 @@ body.storm::after {
     align-items:
         flex-start;
 
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 
@@ -925,7 +954,7 @@ body.storm::after {
 
 
 #dateTime {
-    margin-bottom: 16px;
+    margin-top: 8px;
 
     color: var(--muted);
 
@@ -933,24 +962,47 @@ body.storm::after {
 }
 
 
-.live-dot {
-    width: 8px;
-    height: 8px;
+.live-indicator {
+    display: flex;
 
-    margin-top: 8px;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 11px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(52, 211, 153, 0.07);
+
+    border:
+        1px solid rgba(52, 211, 153, 0.15);
+
+    color:
+        rgba(167, 243, 208, 0.8);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.live-dot {
+    width: 6px;
+    height: 6px;
 
     border-radius: 50%;
 
-    background:
-        #34d399;
+    background: #34d399;
 
     box-shadow:
-        0 0 14px
-        #34d399;
+        0 0 12px #34d399;
 
     animation:
-        livePulse 1.8s
-        ease-in-out infinite;
+        livePulse 1.8s ease-in-out infinite;
 }
 
 
@@ -991,8 +1043,7 @@ body.storm::after {
 
     min-height: 280px;
 
-    padding:
-        35px 45px;
+    padding: 35px 45px;
 
     margin-bottom: 14px;
 
@@ -1009,8 +1060,7 @@ body.storm::after {
         rgba(255, 255, 255, 0.035);
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.07);
+        1px solid rgba(255, 255, 255, 0.07);
 }
 
 
@@ -1029,12 +1079,10 @@ body.storm::after {
     background:
         rgba(56, 189, 248, 0.05);
 
-    filter:
-        blur(70px);
+    filter: blur(70px);
 
     animation:
-        heroGlow 7s
-        ease-in-out infinite alternate;
+        heroGlow 7s ease-in-out infinite alternate;
 }
 
 
@@ -1053,12 +1101,10 @@ body.storm::after {
     background:
         rgba(99, 102, 241, 0.05);
 
-    filter:
-        blur(70px);
+    filter: blur(70px);
 
     animation:
-        heroGlowReverse 8s
-        ease-in-out infinite alternate;
+        heroGlowReverse 8s ease-in-out infinite alternate;
 }
 
 
@@ -1094,10 +1140,6 @@ body.storm::after {
 }
 
 
-/* =========================================================
-   WEATHER ICON
-   ========================================================= */
-
 .weather-icon {
     position: relative;
 
@@ -1123,20 +1165,19 @@ body.storm::after {
         );
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.13);
+        1px solid rgba(255, 255, 255, 0.13);
 
     box-shadow:
-        0 25px 60px
-        rgba(0, 0, 0, 0.30),
-        inset 0 1px 0
-        rgba(255, 255, 255, 0.12);
+        0 25px 60px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
     font-size: 96px;
 
     animation:
-        weatherFloat 5s
-        ease-in-out infinite;
+        weatherFloat 5s ease-in-out infinite;
+
+    transition:
+        transform 0.5s ease;
 }
 
 
@@ -1157,35 +1198,21 @@ body.storm::after {
 }
 
 
-#weatherSymbol {
-    display: block;
-
-    line-height: 1;
-
-    filter:
-        drop-shadow(
-            0 8px 18px
-            rgba(0, 0, 0, 0.22)
-        );
-}
-
-
-/* =========================================================
-   TEMPERATURE
-   ========================================================= */
-
 .temperature-section {
     position: relative;
 
     z-index: 2;
 
+    text-align: left;
+}
+
+
+.temperature-row {
     display: flex;
 
-    flex-direction: column;
+    align-items: flex-end;
 
-    align-items: flex-start;
-
-    text-align: left;
+    gap: 17px;
 }
 
 
@@ -1238,16 +1265,15 @@ body.storm::after {
 }
 
 
-#description {
-    margin-top: 18px;
+.temperature-section > p {
+    margin-top: 19px;
 
     color:
         rgba(226, 232, 240, 0.74);
 
-    font-size: 16px;
+    font-size: 17px;
 
-    text-transform:
-        capitalize;
+    text-transform: capitalize;
 }
 
 
@@ -1260,16 +1286,15 @@ body.storm::after {
 
     gap: 5px;
 
-    margin-top: 12px;
+    margin-bottom: 7px;
 }
 
 
-.unit-toggle button {
-    padding: 7px 11px;
+.unit-btn {
+    padding: 7px 10px;
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.12);
+        1px solid rgba(255, 255, 255, 0.12);
 
     border-radius: 8px;
 
@@ -1288,7 +1313,7 @@ body.storm::after {
 }
 
 
-.unit-toggle button:hover {
+.unit-btn:hover {
     color: white;
 
     background:
@@ -1296,7 +1321,7 @@ body.storm::after {
 }
 
 
-.unit-toggle button.active {
+.unit-btn.active {
     color: white;
 
     background:
@@ -1338,11 +1363,18 @@ body.storm::after {
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.075);
+        1px solid rgba(255, 255, 255, 0.075);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
 
     transition:
-        transform 0.35s ease,
+        transform 0.35s cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        ),
         background 0.35s ease,
         border-color 0.35s ease;
 }
@@ -1357,6 +1389,36 @@ body.storm::after {
 
     border-color:
         rgba(255, 255, 255, 0.15);
+}
+
+
+.detail-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    font-size: 18px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.detail:hover .detail-icon {
+    transform:
+        scale(1.1)
+        rotate(-5deg);
 }
 
 
@@ -1379,7 +1441,88 @@ body.storm::after {
 
 
 /* =========================================================
-   FORECAST SECTIONS
+   SUNRISE / SUNSET
+   ========================================================= */
+
+.sun-section {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin-top: 12px;
+}
+
+
+.sun-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 72px;
+
+    padding: 16px 18px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.065),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.075);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.sun-card:hover {
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(255, 255, 255, 0.09);
+}
+
+
+.sun-icon {
+    font-size: 28px;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(251, 191, 36, 0.25)
+        );
+}
+
+
+.sun-card span:not(.sun-icon) {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.sun-card strong {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   FORECAST
    ========================================================= */
 
 .forecast-section {
@@ -1394,6 +1537,8 @@ body.storm::after {
 
 .section-heading h3 {
     font-size: 18px;
+
+    letter-spacing: -0.2px;
 }
 
 
@@ -1408,8 +1553,7 @@ body.storm::after {
 
     overflow-x: auto;
 
-    padding:
-        3px 3px 12px;
+    padding: 3px 3px 12px;
 
     scrollbar-width: none;
 }
@@ -1423,8 +1567,7 @@ body.storm::after {
 .hourly-card {
     min-width: 100px;
 
-    padding:
-        17px 11px;
+    padding: 17px 11px;
 
     text-align: center;
 
@@ -1434,12 +1577,12 @@ body.storm::after {
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.075);
+        1px solid rgba(255, 255, 255, 0.075);
 
     transition:
         transform 0.3s ease,
-        background 0.3s ease;
+        background 0.3s ease,
+        border-color 0.3s ease;
 }
 
 
@@ -1449,6 +1592,9 @@ body.storm::after {
 
     background:
         rgba(255, 255, 255, 0.09);
+
+    border-color:
+        rgba(255, 255, 255, 0.14);
 }
 
 
@@ -1506,8 +1652,7 @@ body.storm::after {
 
     justify-content: center;
 
-    padding:
-        17px 10px;
+    padding: 17px 10px;
 
     text-align: center;
 
@@ -1517,12 +1662,12 @@ body.storm::after {
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.075);
+        1px solid rgba(255, 255, 255, 0.075);
 
     transition:
         transform 0.3s ease,
-        background 0.3s ease;
+        background 0.3s ease,
+        border-color 0.3s ease;
 }
 
 
@@ -1532,6 +1677,9 @@ body.storm::after {
 
     background:
         rgba(255, 255, 255, 0.09);
+
+    border-color:
+        rgba(255, 255, 255, 0.14);
 }
 
 
@@ -1578,74 +1726,6 @@ body.storm::after {
 
 
 /* =========================================================
-   SUNRISE / SUNSET
-   ========================================================= */
-
-.sun-section {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 12px;
-
-    margin-top: 12px;
-}
-
-
-.sun-card {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    min-height: 72px;
-
-    padding:
-        16px 18px;
-
-    border-radius: 18px;
-
-    background:
-        rgba(255, 255, 255, 0.045);
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.075);
-
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease;
-}
-
-
-.sun-card:hover {
-    transform:
-        translateY(-3px);
-
-    background:
-        rgba(255, 255, 255, 0.09);
-}
-
-
-.sun-icon {
-    font-size: 28px;
-
-    filter:
-        drop-shadow(
-            0 0 12px
-            rgba(251, 191, 36, 0.25)
-        );
-}
-
-
-.sun-card strong {
-    font-size: 15px;
-}
-
-
-/* =========================================================
    RECENT SEARCHES
    ========================================================= */
 
@@ -1655,15 +1735,7 @@ body.storm::after {
     padding-top: 24px;
 
     border-top:
-        1px solid
-        rgba(255, 255, 255, 0.08);
-}
-
-
-.recent-searches h3 {
-    margin-bottom: 14px;
-
-    font-size: 17px;
+        1px solid rgba(255, 255, 255, 0.08);
 }
 
 
@@ -1672,8 +1744,6 @@ body.storm::after {
 
     flex-wrap: wrap;
 
-    justify-content: flex-start;
-
     gap: 8px;
 
     list-style: none;
@@ -1681,8 +1751,7 @@ body.storm::after {
 
 
 .recent-searches li {
-    padding:
-        9px 13px;
+    padding: 9px 13px;
 
     border-radius: 10px;
 
@@ -1690,8 +1759,7 @@ body.storm::after {
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid
-        rgba(255, 255, 255, 0.075);
+        1px solid rgba(255, 255, 255, 0.075);
 
     color:
         rgba(226, 232, 240, 0.72);
@@ -1730,8 +1798,7 @@ footer {
     text-align: center;
 
     border-top:
-        1px solid
-        rgba(255, 255, 255, 0.08);
+        1px solid rgba(255, 255, 255, 0.08);
 }
 
 
@@ -1752,7 +1819,7 @@ footer span {
 
 
 /* =========================================================
-   DESKTOP
+   LARGE DESKTOP
    ========================================================= */
 
 @media (min-width: 1200px) {
@@ -1831,19 +1898,18 @@ footer span {
     }
 
     .daily-forecast {
-        display: flex;
+        grid-template-columns:
+            repeat(5, 120px);
 
         overflow-x: auto;
+
+        padding-bottom: 8px;
 
         scrollbar-width: none;
     }
 
     .daily-forecast::-webkit-scrollbar {
         display: none;
-    }
-
-    .daily-card {
-        min-width: 120px;
     }
 }
 
@@ -1861,8 +1927,7 @@ footer span {
     .weather-app {
         width: 100%;
 
-        padding:
-            22px 16px;
+        padding: 22px 16px;
 
         border-radius: 24px;
     }
@@ -1880,7 +1945,7 @@ footer span {
         font-size: 21px;
     }
 
-    .weather-app h1 {
+    .header-text h1 {
         font-size: 24px;
     }
 
@@ -1913,9 +1978,13 @@ footer span {
     }
 
     .temperature-section {
-        align-items: center;
-
         text-align: center;
+    }
+
+    .temperature-row {
+        justify-content: center;
+
+        align-items: flex-end;
     }
 
     .temperature-section h3 {
@@ -1924,12 +1993,16 @@ footer span {
         letter-spacing: -4px;
     }
 
-    #description {
+    .temperature-section > p {
         font-size: 14px;
     }
 
     .result-heading h2 {
         font-size: 27px;
+    }
+
+    .live-indicator {
+        display: none;
     }
 
     .weather-details {
@@ -1942,10 +2015,16 @@ footer span {
     .detail {
         min-height: 76px;
 
-        padding:
-            13px 11px;
+        padding: 13px 11px;
 
         gap: 9px;
+    }
+
+    .detail-icon {
+        width: 34px;
+        height: 34px;
+
+        font-size: 15px;
     }
 
     .detail span {
@@ -1961,19 +2040,8 @@ footer span {
     }
 
     .daily-forecast {
-        display: flex;
-
-        overflow-x: auto;
-
-        scrollbar-width: none;
-    }
-
-    .daily-forecast::-webkit-scrollbar {
-        display: none;
-    }
-
-    .daily-card {
-        min-width: 105px;
+        grid-template-columns:
+            repeat(5, 105px);
     }
 }
 
@@ -1990,7 +2058,8 @@ footer span {
     }
 
     .weather-details {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .temperature-section h3 {
@@ -2011,7 +2080,7 @@ footer span {
 
 
 /* =========================================================
-   REDUCED MOTION
+   ACCESSIBILITY
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
