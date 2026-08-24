@@ -2095,3 +2095,735 @@ footer span {
         transition-duration: 0.01ms !important;
     }
 }
+/* =========================================================
+   PREMIUM FORECAST UPGRADE
+   ========================================================= */
+
+/* Forecast section */
+
+.forecast-section {
+    margin-top: 32px;
+    animation: forecastReveal 0.7s ease both;
+}
+
+@keyframes forecastReveal {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section-heading {
+    margin-bottom: 14px;
+}
+
+.section-heading h3 {
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.3px;
+}
+
+
+/* =========================================================
+   HOURLY FORECAST
+   ========================================================= */
+
+.hourly-forecast {
+    display: flex;
+    gap: 10px;
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    padding:
+        4px 3px 14px;
+
+    scrollbar-width: none;
+
+    scroll-behavior: smooth;
+}
+
+.hourly-forecast::-webkit-scrollbar {
+    display: none;
+}
+
+
+.hourly-card {
+    position: relative;
+
+    flex: 0 0 108px;
+
+    min-height: 160px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px 10px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.085),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.09);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.16),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.06);
+
+    overflow: hidden;
+
+    cursor: default;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+/* Top highlight */
+
+.hourly-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 15%;
+
+    width: 70%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+}
+
+
+/* Glow */
+
+.hourly-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+    height: 80px;
+
+    top: -35px;
+    right: -25px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(56, 189, 248, 0.08);
+
+    filter: blur(25px);
+
+    pointer-events: none;
+}
+
+
+.hourly-card:hover {
+    transform:
+        translateY(-7px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.13),
+            rgba(255, 255, 255, 0.045)
+        );
+
+    border-color:
+        rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 18px 40px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+/* Hour */
+
+.hourly-card .hour {
+    position: relative;
+
+    z-index: 2;
+
+    color:
+        rgba(226, 232, 240, 0.62);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* Icon */
+
+.hourly-card .hour-icon {
+    position: relative;
+
+    z-index: 2;
+
+    margin:
+        16px 0 13px;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(0, 0, 0, 0.20)
+        );
+
+    transition:
+        transform 0.35s ease;
+}
+
+
+.hourly-card:hover .hour-icon {
+    transform:
+        translateY(-3px)
+        scale(1.12);
+}
+
+
+/* Temperature */
+
+.hourly-card .hour-temp {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+
+/* Rain probability */
+
+.hourly-card .hour-rain {
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 8px;
+
+    padding:
+        4px 7px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(56, 189, 248, 0.08);
+
+    color:
+        rgba(125, 211, 252, 0.82);
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   DAILY FORECAST
+   ========================================================= */
+
+.daily-forecast {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+
+.daily-card {
+    position: relative;
+
+    min-height: 175px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        18px 10px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.085),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.09);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.16),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.06);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.daily-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 15%;
+
+    width: 70%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+}
+
+
+.daily-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    bottom: -45px;
+    left: -35px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(99, 102, 241, 0.08);
+
+    filter: blur(28px);
+
+    pointer-events: none;
+}
+
+
+.daily-card:hover {
+    transform:
+        translateY(-7px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.13),
+            rgba(255, 255, 255, 0.045)
+        );
+
+    border-color:
+        rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 18px 40px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+/* Day */
+
+.daily-card .day {
+    position: relative;
+
+    z-index: 2;
+
+    color:
+        rgba(226, 232, 240, 0.64);
+
+    font-size: 11px;
+
+    font-weight: 650;
+}
+
+
+/* Icon */
+
+.daily-card .day-icon {
+    position: relative;
+
+    z-index: 2;
+
+    margin:
+        17px 0 15px;
+
+    font-size: 34px;
+
+    line-height: 1;
+
+    filter:
+        drop-shadow(
+            0 5px 10px
+            rgba(0, 0, 0, 0.20)
+        );
+
+    transition:
+        transform 0.35s ease;
+}
+
+
+.daily-card:hover .day-icon {
+    transform:
+        scale(1.13)
+        translateY(-3px);
+}
+
+
+/* Temperatures */
+
+.daily-card .temps {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 15px;
+
+    font-weight: 750;
+}
+
+
+.daily-card .temps .low {
+    color:
+        rgba(226, 232, 240, 0.38);
+
+    font-weight: 500;
+}
+
+
+/* Rain */
+
+.daily-card .day-rain {
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 10px;
+
+    padding:
+        4px 7px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(56, 189, 248, 0.08);
+
+    color:
+        rgba(125, 211, 252, 0.82);
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SUNRISE / SUNSET
+   ========================================================= */
+
+.sun-section {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-top: 14px;
+}
+
+
+.sun-card {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 82px;
+
+    padding:
+        16px 20px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.075),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.085);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease;
+}
+
+
+.sun-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: -40px;
+    top: -50px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(251, 191, 36, 0.08);
+
+    filter: blur(30px);
+}
+
+
+.sun-card:hover {
+    transform:
+        translateY(-4px);
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    border-color:
+        rgba(255, 255, 255, 0.16);
+}
+
+
+.sun-icon {
+    position: relative;
+
+    z-index: 2;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    background:
+        rgba(251, 191, 36, 0.08);
+
+    font-size: 24px;
+
+    filter:
+        drop-shadow(
+            0 4px 10px
+            rgba(251, 191, 36, 0.18)
+        );
+}
+
+
+.sun-card div {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.sun-card div span {
+    color:
+        rgba(226, 232, 240, 0.50);
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+.sun-card strong {
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FORECAST SCROLL INDICATOR
+   ========================================================= */
+
+.hourly-forecast {
+    position: relative;
+}
+
+
+/* =========================================================
+   MOBILE FORECAST
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .daily-forecast {
+        display: flex;
+
+        gap: 10px;
+
+        overflow-x: auto;
+
+        padding:
+            4px 3px 14px;
+
+        scrollbar-width: none;
+
+        scroll-behavior: smooth;
+    }
+
+    .daily-forecast::-webkit-scrollbar {
+        display: none;
+    }
+
+    .daily-card {
+        flex:
+            0 0 120px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .forecast-section {
+        margin-top: 27px;
+    }
+
+    .section-heading h3 {
+        font-size: 17px;
+    }
+
+    .hourly-card {
+        flex-basis: 96px;
+
+        min-height: 150px;
+    }
+
+    .daily-card {
+        flex-basis: 112px;
+
+        min-height: 165px;
+    }
+
+    .sun-section {
+        grid-template-columns: 1fr;
+
+        gap: 9px;
+    }
+
+    .sun-card {
+        min-height: 74px;
+
+        padding:
+            14px 16px;
+    }
+
+    .sun-icon {
+        width: 40px;
+        height: 40px;
+
+        font-size: 21px;
+    }
+}
+
+
+@media (max-width: 390px) {
+
+    .hourly-card {
+        flex-basis: 90px;
+    }
+
+    .daily-card {
+        flex-basis: 105px;
+    }
+}
