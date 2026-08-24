@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -14,13 +16,17 @@
         rel="stylesheet"
         href="style.css"
     >
+
 </head>
+
 
 <body>
 
     <div class="weather-app">
 
-        <!-- HEADER -->
+
+        <!-- ================= HEADER ================= -->
+
         <header class="app-header">
 
             <div
@@ -31,6 +37,7 @@
             </div>
 
             <div>
+
                 <p class="eyebrow">
                     LIVE CONDITIONS
                 </p>
@@ -38,12 +45,15 @@
                 <h1>
                     Weather, at a glance.
                 </h1>
+
             </div>
 
         </header>
 
 
-        <!-- SEARCH -->
+
+        <!-- ================= SEARCH ================= -->
+
         <div class="search-box">
 
             <input
@@ -53,23 +63,48 @@
                 autocomplete="off"
             >
 
+
             <button
                 onclick="getWeather()"
+                class="search-btn"
             >
-                <span aria-hidden="true">⌕</span>
+
+                <span aria-hidden="true">
+                    ⌕
+                </span>
+
                 Search
+
+            </button>
+
+
+            <button
+                onclick="getCurrentLocation()"
+                class="location-btn"
+                title="Use my current location"
+                aria-label="Use my current location"
+            >
+
+                <span aria-hidden="true">
+                    📍
+                </span>
+
             </button>
 
         </div>
 
 
-        <!-- WEATHER RESULT -->
+
+        <!-- ================= WEATHER RESULT ================= -->
+
         <div
             id="weatherResult"
             class="weather-result"
         >
 
+
             <!-- LOCATION -->
+
             <div class="result-heading">
 
                 <div>
@@ -84,6 +119,7 @@
 
                 </div>
 
+
                 <span
                     class="live-dot"
                     aria-label="Live data"
@@ -95,8 +131,11 @@
             <p id="dateTime"></p>
 
 
-            <!-- MAIN WEATHER HERO -->
+
+            <!-- ================= WEATHER HERO ================= -->
+
             <div class="weather-hero">
+
 
                 <div
                     class="weather-icon"
@@ -111,6 +150,7 @@
                     </span>
 
                 </div>
+
 
 
                 <div class="temperature-section">
@@ -128,6 +168,7 @@
                         >
                             °C
                         </button>
+
 
                         <button
                             id="fahrenheitBtn"
@@ -149,8 +190,11 @@
             </div>
 
 
-            <!-- WEATHER DETAILS -->
+
+            <!-- ================= WEATHER DETAILS ================= -->
+
             <div class="weather-details">
+
 
                 <div
                     class="detail"
@@ -166,6 +210,7 @@
                     </p>
 
                 </div>
+
 
 
                 <div
@@ -184,6 +229,7 @@
                 </div>
 
 
+
                 <div
                     class="detail"
                     data-icon="feels"
@@ -198,6 +244,7 @@
                     </p>
 
                 </div>
+
 
 
                 <div
@@ -216,6 +263,7 @@
                 </div>
 
 
+
                 <div
                     class="detail"
                     data-icon="direction"
@@ -230,6 +278,7 @@
                     </p>
 
                 </div>
+
 
 
                 <div
@@ -250,8 +299,11 @@
             </div>
 
 
-            <!-- SUNRISE / SUNSET -->
+
+            <!-- ================= SUNRISE / SUNSET ================= -->
+
             <section class="sun-section">
+
 
                 <div class="sun-card">
 
@@ -272,6 +324,7 @@
                     </div>
 
                 </div>
+
 
 
                 <div class="sun-card">
@@ -297,8 +350,11 @@
             </section>
 
 
-            <!-- HOURLY FORECAST -->
+
+            <!-- ================= HOURLY FORECAST ================= -->
+
             <section class="forecast-section">
+
 
                 <div class="section-heading">
 
@@ -321,8 +377,11 @@
             </section>
 
 
-            <!-- 5 DAY FORECAST -->
+
+            <!-- ================= 5 DAY FORECAST ================= -->
+
             <section class="forecast-section">
+
 
                 <div class="section-heading">
 
@@ -344,18 +403,21 @@
 
             </section>
 
+
         </div>
 
 
-        <!-- LOADING -->
+
+        <!-- ================= STATUS ================= -->
+
         <p id="loadingMessage"></p>
 
-
-        <!-- ERROR -->
         <p id="errorMessage"></p>
 
 
-        <!-- RECENT SEARCHES -->
+
+        <!-- ================= RECENT SEARCHES ================= -->
+
         <section class="recent-searches">
 
             <h3>
@@ -367,7 +429,9 @@
         </section>
 
 
-        <!-- FOOTER -->
+
+        <!-- ================= FOOTER ================= -->
+
         <footer>
 
             <p>
@@ -380,7 +444,9 @@
 
         </footer>
 
+
     </div>
+
 
 
     <script src="script.js"></script>
