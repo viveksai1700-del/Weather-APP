@@ -1348,3 +1348,347 @@ input:focus-visible {
             0.01ms !important;
     }
 }
+/* =========================================================
+   FORECAST ALIGNMENT FIX
+   ========================================================= */
+
+.weather-result > .forecast-section {
+    width: 100%;
+    min-width: 0;
+    margin-top: 18px;
+}
+
+
+/* Hourly Forecast */
+
+.weather-result > .forecast-section:first-of-type {
+    grid-column: 1 / -1;
+}
+
+
+/* 5-Day Forecast */
+
+.weather-result > .forecast-section:last-of-type {
+    grid-column: 1 / -1;
+}
+
+
+/* Section heading */
+
+.forecast-section .section-heading {
+    width: 100%;
+    margin-bottom: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.forecast-section .section-heading .eyebrow {
+    margin-bottom: 3px;
+}
+
+.forecast-section .section-heading h3 {
+    margin: 0;
+
+    font-size: 18px;
+    line-height: 1.2;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   HOURLY CARDS
+   ========================================================= */
+
+.hourly-forecast {
+    width: 100%;
+
+    display: flex;
+    align-items: stretch;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    padding: 3px 3px 12px;
+
+    scrollbar-width: none;
+
+    scroll-behavior: smooth;
+}
+
+.hourly-forecast::-webkit-scrollbar {
+    display: none;
+}
+
+
+.hourly-card {
+    position: relative;
+
+    flex: 0 0 92px;
+
+    width: 92px;
+    min-height: 145px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 8px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.085),
+            rgba(255,255,255,0.035)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.09);
+
+    box-shadow:
+        0 8px 22px
+        rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+.hourly-card:hover {
+    transform: translateY(-5px);
+
+    background:
+        rgba(255,255,255,0.12);
+
+    border-color:
+        rgba(255,255,255,0.17);
+}
+
+
+.hourly-card .hour {
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 10px;
+
+    font-weight: 650;
+
+    color:
+        rgba(255,255,255,0.62);
+
+    white-space: nowrap;
+}
+
+
+.hourly-card .hour-icon {
+    margin: 15px 0 12px;
+
+    font-size: 28px;
+
+    line-height: 1;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.hourly-card:hover .hour-icon {
+    transform:
+        scale(1.12)
+        translateY(-2px);
+}
+
+
+.hourly-card .hour-temp {
+    font-size: 16px;
+
+    line-height: 1;
+
+    font-weight: 750;
+
+    color: white;
+}
+
+
+.hourly-card .hour-rain {
+    margin-top: 9px;
+
+    padding: 4px 7px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(56,189,248,0.08);
+
+    color:
+        #7dd3fc;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   5-DAY FORECAST
+   ========================================================= */
+
+.daily-forecast {
+    width: 100%;
+
+    display: flex;
+
+    gap: 10px;
+
+    overflow-x: auto;
+
+    padding: 3px 3px 12px;
+
+    scrollbar-width: none;
+}
+
+.daily-forecast::-webkit-scrollbar {
+    display: none;
+}
+
+
+.daily-card {
+    flex: 1 1 0;
+
+    min-width: 105px;
+
+    min-height: 145px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 8px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.085),
+            rgba(255,255,255,0.035)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.09);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+
+.daily-card:hover {
+    transform: translateY(-5px);
+
+    background:
+        rgba(255,255,255,0.12);
+}
+
+
+.daily-card .day {
+    font-size: 10px;
+
+    font-weight: 650;
+
+    color:
+        rgba(255,255,255,0.62);
+}
+
+
+.daily-card .day-icon {
+    margin: 14px 0;
+
+    font-size: 29px;
+}
+
+
+.daily-card .temps {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 14px;
+
+    font-weight: 750;
+}
+
+
+.daily-card .temps .low {
+    color:
+        rgba(255,255,255,0.40);
+}
+
+
+.daily-card .day-rain {
+    margin-top: 8px;
+
+    font-size: 9px;
+
+    color:
+        #7dd3fc;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .weather-result > .forecast-section {
+        grid-column: 1 / -1;
+    }
+
+    .daily-card {
+        flex:
+            0 0 105px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .hourly-card {
+        flex:
+            0 0 88px;
+
+        width: 88px;
+
+        min-height: 140px;
+    }
+
+    .daily-card {
+        flex:
+            0 0 100px;
+    }
+
+    .forecast-section .section-heading h3 {
+        font-size: 16px;
+    }
+}
