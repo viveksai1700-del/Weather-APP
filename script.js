@@ -25,13 +25,14 @@ const sunset = document.getElementById("sunset");
 
 const weatherSymbol = document.getElementById("weatherSymbol");
 
-const dateTime = document.getElementById("dateTime");
+const errorMessage =
+    document.getElementById("errorMessage");
+
+const dateTime =
+    document.getElementById("dateTime");
 
 const loadingMessage =
     document.getElementById("loadingMessage");
-
-const errorMessage =
-    document.getElementById("errorMessage");
 
 const recentCities =
     document.getElementById("recentCities");
@@ -54,7 +55,6 @@ const fahrenheitBtn =
 // -----------------------------------------------------
 
 let currentTemperatureC = null;
-
 let currentFeelsLikeC = null;
 
 let currentUnit = "C";
@@ -105,7 +105,7 @@ async function getWeather(cityOverride = null) {
         if (!response.ok) {
 
             throw new Error(
-                "Weather request failed."
+                "Unable to fetch weather data."
             );
         }
 
@@ -113,8 +113,6 @@ async function getWeather(cityOverride = null) {
         let data =
             await response.json();
 
-
-        // Handle wrapped API response
 
         if (
             data.data &&
@@ -132,7 +130,7 @@ async function getWeather(cityOverride = null) {
         ) {
 
             throw new Error(
-                "Invalid weather response."
+                "Invalid weather data."
             );
         }
 
@@ -153,8 +151,7 @@ async function getWeather(cityOverride = null) {
         saveRecentCity(city);
 
 
-        loadingMessage.textContent =
-            "";
+        loadingMessage.textContent = "";
 
     }
 
@@ -166,8 +163,7 @@ async function getWeather(cityOverride = null) {
         );
 
 
-        loadingMessage.textContent =
-            "";
+        loadingMessage.textContent = "";
 
 
         errorMessage.textContent =
@@ -177,7 +173,7 @@ async function getWeather(cityOverride = null) {
 
 
 // =====================================================
-// GET WEATHER USING CURRENT LOCATION
+// CURRENT LOCATION
 // =====================================================
 
 function getCurrentLocation() {
@@ -234,8 +230,6 @@ function getCurrentLocation() {
                     await response.json();
 
 
-                // Handle wrapped API response
-
                 if (
                     data.data &&
                     data.data.current_condition
@@ -252,7 +246,7 @@ function getCurrentLocation() {
                 ) {
 
                     throw new Error(
-                        "Invalid weather response."
+                        "Invalid weather data."
                     );
                 }
 
@@ -260,8 +254,6 @@ function getCurrentLocation() {
                 currentWeatherData =
                     data;
 
-
-                // Find nearest city
 
                 let detectedCity =
                     "Current Location";
@@ -278,8 +270,7 @@ function getCurrentLocation() {
 
                     if (
                         area.areaName &&
-                        area.areaName[0] &&
-                        area.areaName[0].value
+                        area.areaName[0]
                     ) {
 
                         detectedCity =
@@ -302,13 +293,9 @@ function getCurrentLocation() {
                 );
 
 
-                loadingMessage.textContent =
-                    "";
+                loadingMessage.textContent = "";
 
-
-                errorMessage.textContent =
-                    "";
-
+                errorMessage.textContent = "";
 
             }
 
@@ -320,8 +307,7 @@ function getCurrentLocation() {
                 );
 
 
-                loadingMessage.textContent =
-                    "";
+                loadingMessage.textContent = "";
 
 
                 errorMessage.textContent =
@@ -330,51 +316,51 @@ function getCurrentLocation() {
 
         },
 
-
         function(error) {
 
-            loadingMessage.textContent =
-                "";
+            loadingMessage.textContent = "";
 
 
-            switch (error.code) {
+            if (
+                error.code ===
+                error.PERMISSION_DENIED
+            ) {
 
-                case error.PERMISSION_DENIED:
+                errorMessage.textContent =
+                    "Location permission was denied.";
 
-                    errorMessage.textContent =
-                        "Location permission was denied. Please allow location access.";
+            }
 
-                    break;
+            else if (
+                error.code ===
+                error.POSITION_UNAVAILABLE
+            ) {
 
+                errorMessage.textContent =
+                    "Your location could not be determined.";
 
-                case error.POSITION_UNAVAILABLE:
+            }
 
-                    errorMessage.textContent =
-                        "Your location could not be determined.";
+            else if (
+                error.code ===
+                error.TIMEOUT
+            ) {
 
-                    break;
+                errorMessage.textContent =
+                    "Location request timed out.";
 
+            }
 
-                case error.TIMEOUT:
+            else {
 
-                    errorMessage.textContent =
-                        "Location request timed out. Please try again.";
-
-                    break;
-
-
-                default:
-
-                    errorMessage.textContent =
-                        "Unable to detect your location.";
+                errorMessage.textContent =
+                    "Unable to detect your location.";
             }
         },
 
         {
             enableHighAccuracy: true,
-
             timeout: 10000,
-
             maximumAge: 300000
         }
     );
@@ -487,7 +473,6 @@ function getWeatherIcon(code) {
 
 
     if (weatherCode === 113) {
-
         return "☀️";
     }
 
@@ -558,7 +543,7 @@ function getWeatherIcon(code) {
 
 
 // =====================================================
-// UPDATE FORECASTS
+// FORECASTS
 // =====================================================
 
 function updateForecasts(data) {
@@ -593,8 +578,9 @@ function updateHourlyForecast(data) {
     }
 
 
+    // Only display the next 12 available hours
     const hourly =
-        data.weather[0].hourly;
+        data.weather[0].hourly.slice(0, 12);
 
 
     hourly.forEach(
@@ -622,7 +608,7 @@ function updateHourlyForecast(data) {
                 );
 
 
-            const temperatureValue =
+            const temp =
                 getTemperature(
                     hour.tempC
                 );
@@ -648,7 +634,7 @@ function updateHourlyForecast(data) {
                 </div>
 
                 <div class="hour-temp">
-                    ${temperatureValue}
+                    ${temp}
                 </div>
 
                 <div class="hour-rain">
@@ -683,19 +669,16 @@ function formatHour(time) {
 
 
     if (hour === 0) {
-
         return "12 AM";
     }
 
 
     if (hour < 12) {
-
         return `${hour} AM`;
     }
 
 
     if (hour === 12) {
-
         return "12 PM";
     }
 
@@ -705,7 +688,7 @@ function formatHour(time) {
 
 
 // =====================================================
-// DAILY FORECAST
+// 5-DAY FORECAST
 // =====================================================
 
 function updateDailyForecast(data) {
@@ -739,9 +722,7 @@ function updateDailyForecast(data) {
 
 
                 const date =
-                    new Date(
-                        day.date
-                    );
+                    new Date(day.date);
 
 
                 const dayName =
@@ -750,16 +731,13 @@ function updateDailyForecast(data) {
                         : date.toLocaleDateString(
                             "en-US",
                             {
-                                weekday:
-                                    "short"
+                                weekday: "short"
                             }
                         );
 
 
                 const icon =
-                    getDailyIcon(
-                        day
-                    );
+                    getDailyIcon(day);
 
 
                 const high =
@@ -838,14 +816,10 @@ function getDailyIcon(day) {
         );
 
 
-    const middleHour =
+    return getWeatherIcon(
         day.hourly[
             middleIndex
-        ];
-
-
-    return getWeatherIcon(
-        middleHour.weatherCode
+        ].weatherCode
     );
 }
 
@@ -869,8 +843,7 @@ function getDailyRainChance(day) {
         day.hourly.map(
             hour =>
                 Number(
-                    hour.chanceofrain ||
-                    0
+                    hour.chanceofrain || 0
                 )
         );
 
@@ -882,30 +855,26 @@ function getDailyRainChance(day) {
 
 
 // =====================================================
-// TEMPERATURE
+// TEMPERATURE HELPERS
 // =====================================================
 
 function getTemperature(celsius) {
 
+    const value =
+        Number(celsius);
+
+
     if (currentUnit === "C") {
 
-        return `${Number(celsius)}°`;
+        return `${value}°`;
     }
 
 
-    return `${convertToFahrenheit(
-        celsius
-    )}°`;
+    return `${convertToFahrenheit(value)}°`;
 }
 
 
-// =====================================================
-// CELSIUS TO FAHRENHEIT
-// =====================================================
-
-function convertToFahrenheit(
-    celsius
-) {
+function convertToFahrenheit(celsius) {
 
     return (
         Number(celsius) * 9 / 5 + 32
@@ -943,7 +912,7 @@ function updateTemperatureDisplay() {
 
 
 // =====================================================
-// FEELS LIKE DISPLAY
+// FEELS LIKE
 // =====================================================
 
 function updateFeelsLikeDisplay() {
@@ -1295,12 +1264,7 @@ function addParticleStyles() {
                 linear-gradient(
                     to bottom,
                     transparent,
-                    rgba(
-                        147,
-                        197,
-                        253,
-                        0.8
-                    )
+                    rgba(147,197,253,0.8)
                 );
 
             animation:
@@ -1332,21 +1296,11 @@ function addParticleStyles() {
             border-radius: 50%;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.9
-                );
+                rgba(255,255,255,0.9);
 
             box-shadow:
                 0 0 8px
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.55
-                );
+                rgba(255,255,255,0.55);
 
             animation:
                 snowFall linear infinite;
@@ -1356,42 +1310,27 @@ function addParticleStyles() {
 
             0% {
                 transform:
-                    translate(
-                        0,
-                        -50px
-                    );
+                    translate(0,-50px);
             }
 
             25% {
                 transform:
-                    translate(
-                        30px,
-                        25vh
-                    );
+                    translate(30px,25vh);
             }
 
             50% {
                 transform:
-                    translate(
-                        -25px,
-                        50vh
-                    );
+                    translate(-25px,50vh);
             }
 
             75% {
                 transform:
-                    translate(
-                        25px,
-                        75vh
-                    );
+                    translate(25px,75vh);
             }
 
             100% {
                 transform:
-                    translate(
-                        -15px,
-                        110vh
-                    );
+                    translate(-15px,110vh);
             }
         }
 
@@ -1402,46 +1341,27 @@ function addParticleStyles() {
             border-radius: 50%;
 
             background:
-                rgba(
-                    253,
-                    224,
-                    71,
-                    0.75
-                );
+                rgba(253,224,71,0.75);
 
             box-shadow:
                 0 0 12px
-                rgba(
-                    251,
-                    191,
-                    36,
-                    0.65
-                );
+                rgba(251,191,36,0.65);
 
             animation:
-                sunFloat
-                ease-in-out
-                infinite
-                alternate;
+                sunFloat ease-in-out infinite alternate;
         }
 
         @keyframes sunFloat {
 
             from {
                 transform:
-                    translate(
-                        -10px,
-                        10px
-                    )
+                    translate(-10px,10px)
                     scale(0.8);
             }
 
             to {
                 transform:
-                    translate(
-                        25px,
-                        -30px
-                    )
+                    translate(25px,-30px)
                     scale(1.2);
             }
         }
@@ -1453,36 +1373,25 @@ function addParticleStyles() {
             border-radius: 50%;
 
             background:
-                rgba(
-                    226,
-                    232,
-                    240,
-                    0.055
-                );
+                rgba(226,232,240,0.055);
 
             filter:
                 blur(12px);
 
             animation:
-                cloudMove
-                linear
-                infinite;
+                cloudMove linear infinite;
         }
 
         @keyframes cloudMove {
 
             from {
                 transform:
-                    translateX(
-                        -250px
-                    );
+                    translateX(-250px);
             }
 
             to {
                 transform:
-                    translateX(
-                        120vw
-                    );
+                    translateX(120vw);
             }
         }
 
@@ -1491,18 +1400,10 @@ function addParticleStyles() {
 
             inset: 0;
 
-            width: 100vw;
-            height: 100vh;
-
             pointer-events: none;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.18
-                );
+                rgba(255,255,255,0.18);
 
             opacity: 0;
 
@@ -1534,21 +1435,6 @@ function addParticleStyles() {
             100% {
                 opacity: 0;
             }
-        }
-
-        .hour-rain,
-        .day-rain {
-            margin-top: 6px;
-
-            font-size: 10px;
-
-            color:
-                rgba(
-                    147,
-                    197,
-                    253,
-                    0.75
-                );
         }
 
     `;
@@ -1598,7 +1484,7 @@ function clearParticles() {
 
 
 // =====================================================
-// RAIN PARTICLES
+// RAIN
 // =====================================================
 
 function createRainParticles() {
@@ -1608,8 +1494,8 @@ function createRainParticles() {
 
     const count =
         window.innerWidth < 600
-            ? 75
-            : 140;
+            ? 70
+            : 130;
 
 
     for (
@@ -1660,7 +1546,7 @@ function createRainParticles() {
 
 
 // =====================================================
-// SNOW PARTICLES
+// SNOW
 // =====================================================
 
 function createSnowParticles() {
@@ -1671,7 +1557,7 @@ function createSnowParticles() {
     const count =
         window.innerWidth < 600
             ? 45
-            : 85;
+            : 80;
 
 
     for (
@@ -1788,7 +1674,7 @@ function createSunParticles() {
 
 
 // =====================================================
-// CLOUD PARTICLES
+// CLOUDS
 // =====================================================
 
 function createCloudParticles() {
@@ -1828,12 +1714,6 @@ function createCloudParticles() {
 
         cloud.style.opacity =
             `${0.15 + Math.random() * 0.25}`;
-
-
-        cloud.style.transform =
-            `scale(
-                ${0.7 + Math.random() * 0.7}
-            )`;
 
 
         cloud.style.animationDuration =
@@ -1931,7 +1811,7 @@ function scheduleLightning() {
 
 
 // =====================================================
-// UPDATE ATMOSPHERE
+// WEATHER ATMOSPHERE
 // =====================================================
 
 function updateAtmosphere(code) {
@@ -2133,7 +2013,7 @@ function displayRecentCities() {
 
 
 // =====================================================
-// ENTER KEY SEARCH
+// ENTER KEY
 // =====================================================
 
 cityInput.addEventListener(
@@ -2149,7 +2029,7 @@ cityInput.addEventListener(
 
 
 // =====================================================
-// RESIZE HANDLER
+// RESIZE
 // =====================================================
 
 let resizeTimer = null;
@@ -2200,8 +2080,6 @@ updateDateTime();
 
 displayRecentCities();
 
-
-// Update clock every minute
 
 setInterval(
     updateDateTime,
