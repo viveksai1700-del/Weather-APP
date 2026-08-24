@@ -1,6 +1,6 @@
-/* ========================================
-   RESET
-======================================== */
+/* =========================================================
+   WEATHER APP — PREMIUM ATMOSPHERIC UI
+   ========================================================= */
 
 * {
     margin: 0;
@@ -9,23 +9,38 @@
 }
 
 :root {
+    --white: #ffffff;
     --text: #f8fafc;
     --muted: rgba(226, 232, 240, 0.68);
-    --border: rgba(255, 255, 255, 0.11);
+
+    --glass: rgba(255, 255, 255, 0.075);
+    --glass-strong: rgba(255, 255, 255, 0.11);
+    --glass-soft: rgba(255, 255, 255, 0.045);
+
+    --border: rgba(255, 255, 255, 0.12);
+    --border-soft: rgba(255, 255, 255, 0.07);
+
+    --shadow: rgba(0, 0, 0, 0.42);
+
+    --blue: #38bdf8;
+    --purple: #6366f1;
 }
 
 
-/* ========================================
+/* =========================================================
    BODY
-======================================== */
+   ========================================================= */
 
 body {
     min-height: 100vh;
-    padding: 40px 20px;
+
+    padding: 35px 24px;
 
     display: flex;
     justify-content: center;
     align-items: flex-start;
+
+    position: relative;
 
     overflow-x: hidden;
 
@@ -40,23 +55,31 @@ body {
     color: var(--text);
 
     background:
+        radial-gradient(
+            circle at 12% 10%,
+            rgba(56, 189, 248, 0.16),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 88% 18%,
+            rgba(99, 102, 241, 0.15),
+            transparent 28%
+        ),
         linear-gradient(
             135deg,
-            #07111f,
-            #0b1728,
-            #101827
+            #06101d 0%,
+            #0a1829 50%,
+            #0c1627 100%
         );
-
-    position: relative;
 
     transition:
         background 1.5s ease;
 }
 
 
-/* ========================================
-   ANIMATED ATMOSPHERE
-======================================== */
+/* =========================================================
+   ANIMATED ATMOSPHERIC LIGHT
+   ========================================================= */
 
 body::before,
 body::after {
@@ -64,8 +87,8 @@ body::after {
 
     position: fixed;
 
-    width: 500px;
-    height: 500px;
+    width: 520px;
+    height: 520px;
 
     border-radius: 50%;
 
@@ -73,32 +96,30 @@ body::after {
 
     z-index: -2;
 
-    filter: blur(100px);
+    filter: blur(110px);
 
     opacity: 0.45;
 
     animation:
-        ambientMove 14s ease-in-out infinite alternate;
+        ambientMove 16s ease-in-out infinite alternate;
 }
-
 
 body::before {
-    top: -220px;
-    left: -180px;
+    top: -250px;
+    left: -170px;
 
     background:
-        rgba(56, 189, 248, 0.2);
+        rgba(14, 165, 233, 0.22);
 }
 
-
 body::after {
-    right: -200px;
-    bottom: -220px;
+    right: -220px;
+    bottom: -260px;
 
     background:
-        rgba(99, 102, 241, 0.18);
+        rgba(99, 102, 241, 0.20);
 
-    animation-delay: -6s;
+    animation-delay: -7s;
 }
 
 
@@ -112,7 +133,7 @@ body::after {
 
     50% {
         transform:
-            translate3d(80px, 40px, 0)
+            translate3d(80px, 50px, 0)
             scale(1.12);
     }
 
@@ -124,53 +145,42 @@ body::after {
 }
 
 
-/* ========================================
-   WEATHER PARTICLE LAYER
-======================================== */
-
-body::marker {
-    display: none;
-}
-
-
-/* ========================================
-   CLEAR WEATHER
-======================================== */
+/* =========================================================
+   WEATHER BACKGROUNDS
+   ========================================================= */
 
 body.clear {
     background:
         radial-gradient(
-            circle at 50% -10%,
-            rgba(251, 191, 36, 0.3),
+            circle at 50% -15%,
+            rgba(251, 191, 36, 0.30),
             transparent 32%
         ),
         radial-gradient(
-            circle at 15% 80%,
-            rgba(56, 189, 248, 0.2),
+            circle at 15% 85%,
+            rgba(56, 189, 248, 0.16),
             transparent 30%
         ),
         linear-gradient(
             135deg,
             #061321,
-            #102a45,
+            #0d2942,
             #172554
         );
 }
 
 
 body.clear::before {
-    width: 350px;
-    height: 350px;
+    width: 420px;
+    height: 420px;
 
-    top: -100px;
+    top: -170px;
     left: 50%;
 
     transform: translateX(-50%);
 
     background:
-        rgba(251, 191, 36, 0.28);
-
-    filter: blur(80px);
+        rgba(251, 191, 36, 0.25);
 
     animation:
         sunGlow 5s ease-in-out infinite alternate;
@@ -180,37 +190,35 @@ body.clear::before {
 @keyframes sunGlow {
 
     from {
-        opacity: 0.3;
+        opacity: 0.25;
+
         transform:
             translateX(-50%)
             scale(0.9);
     }
 
     to {
-        opacity: 0.7;
+        opacity: 0.65;
+
         transform:
             translateX(-50%)
-            scale(1.15);
+            scale(1.12);
     }
 }
 
 
-/* ========================================
-   CLOUDY WEATHER
-======================================== */
-
 body.cloudy {
     background:
         radial-gradient(
-            circle at 20% 20%,
-            rgba(148, 163, 184, 0.2),
-            transparent 32%
+            circle at 15% 20%,
+            rgba(148, 163, 184, 0.20),
+            transparent 30%
         ),
         linear-gradient(
             135deg,
-            #0b1220,
-            #1e293b,
-            #273449
+            #08111e,
+            #172335,
+            #27364b
         );
 }
 
@@ -220,9 +228,7 @@ body.cloudy::before {
     height: 220px;
 
     top: 8%;
-    left: -250px;
-
-    border-radius: 50%;
+    left: -300px;
 
     background:
         rgba(148, 163, 184, 0.12);
@@ -230,16 +236,16 @@ body.cloudy::before {
     filter: blur(55px);
 
     animation:
-        cloudMove 18s linear infinite;
+        cloudMove 20s linear infinite;
 }
 
 
 body.cloudy::after {
-    width: 500px;
-    height: 180px;
+    width: 550px;
+    height: 200px;
 
     top: 25%;
-    right: -250px;
+    right: -300px;
 
     background:
         rgba(203, 213, 225, 0.08);
@@ -247,7 +253,7 @@ body.cloudy::after {
     filter: blur(60px);
 
     animation:
-        cloudMoveReverse 23s linear infinite;
+        cloudMoveReverse 24s linear infinite;
 }
 
 
@@ -258,7 +264,7 @@ body.cloudy::after {
     }
 
     to {
-        transform: translateX(800px);
+        transform: translateX(1000px);
     }
 }
 
@@ -270,44 +276,43 @@ body.cloudy::after {
     }
 
     to {
-        transform: translateX(-800px);
+        transform: translateX(-1000px);
     }
 }
 
 
-/* ========================================
-   RAIN WEATHER
-======================================== */
-
 body.rain {
     background:
         radial-gradient(
-            circle at 15% 15%,
-            rgba(14, 165, 233, 0.18),
+            circle at 12% 8%,
+            rgba(14, 165, 233, 0.20),
             transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(37, 99, 235, 0.16),
+            transparent 32%
         ),
         linear-gradient(
             135deg,
             #020617,
-            #0f2740,
+            #0a2035,
             #102a43
         );
 }
 
 
 body.rain::before {
-    width: 250px;
-    height: 600px;
+    width: 300px;
+    height: 650px;
 
-    top: -150px;
-    left: 10%;
-
-    border-radius: 50%;
+    top: -180px;
+    left: 12%;
 
     background:
         rgba(56, 189, 248, 0.08);
 
-    filter: blur(60px);
+    filter: blur(70px);
 
     animation:
         rainGlow 4s ease-in-out infinite alternate;
@@ -315,24 +320,25 @@ body.rain::before {
 
 
 body.rain::after {
-    width: 300px;
-    height: 600px;
+    inset: 0;
 
-    right: 15%;
-    top: -180px;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0;
+
+    filter: none;
+
+    opacity: 0.28;
 
     background:
         repeating-linear-gradient(
             110deg,
             transparent 0px,
-            transparent 8px,
-            rgba(147, 197, 253, 0.08) 9px,
-            transparent 10px
+            transparent 10px,
+            rgba(147, 197, 253, 0.10) 11px,
+            transparent 12px
         );
-
-    filter: blur(1px);
-
-    opacity: 0.5;
 
     animation:
         rainFall 0.8s linear infinite;
@@ -354,44 +360,69 @@ body.rain::after {
 @keyframes rainFall {
 
     from {
-        transform:
-            translateY(-80px);
+        transform: translateY(-80px);
     }
 
     to {
-        transform:
-            translateY(100px);
+        transform: translateY(100px);
     }
 }
 
 
-/* ========================================
-   SNOW WEATHER
-======================================== */
-
 body.snow {
     background:
         radial-gradient(
-            circle at 25% 10%,
-            rgba(186, 230, 253, 0.2),
+            circle at 25% 8%,
+            rgba(186, 230, 253, 0.20),
             transparent 32%
         ),
         linear-gradient(
             135deg,
-            #07131f,
-            #163047,
+            #06111c,
+            #122d44,
             #1e3a5f
         );
 }
 
 
 body.snow::before {
+    inset: 0;
+
     width: 100%;
     height: 100%;
 
-    inset: 0;
+    border-radius: 0;
+
+    filter: none;
+
+    opacity: 0.3;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.8) 1px,
+            transparent 2px
+        );
+
+    background-size:
+        45px 45px;
+
+    animation:
+        snowFall 12s linear infinite;
+}
+
+
+body.snow::after {
+    inset: -50px;
+
+    width: 100%;
+    height: 100%;
 
     border-radius: 0;
+
+    filter: none;
+
+    opacity: 0.18;
 
     background-image:
         radial-gradient(
@@ -401,41 +432,10 @@ body.snow::before {
         );
 
     background-size:
-        45px 45px;
-
-    filter: none;
-
-    opacity: 0.3;
-
-    animation:
-        snowFall 12s linear infinite;
-}
-
-
-body.snow::after {
-    width: 100%;
-    height: 100%;
-
-    inset: -50px;
-
-    border-radius: 0;
-
-    background-image:
-        radial-gradient(
-            circle,
-            rgba(255, 255, 255, 0.45) 1px,
-            transparent 2px
-        );
-
-    background-size:
         70px 70px;
 
-    filter: none;
-
-    opacity: 0.2;
-
     animation:
-        snowFall 18s linear infinite reverse;
+        snowFallReverse 18s linear infinite;
 }
 
 
@@ -453,20 +453,30 @@ body.snow::after {
 }
 
 
-/* ========================================
-   STORM WEATHER
-======================================== */
+@keyframes snowFallReverse {
+
+    from {
+        background-position:
+            0 0;
+    }
+
+    to {
+        background-position:
+            -70px 600px;
+    }
+}
+
 
 body.storm {
     background:
         radial-gradient(
-            circle at 70% 20%,
-            rgba(139, 92, 246, 0.22),
+            circle at 70% 15%,
+            rgba(139, 92, 246, 0.24),
             transparent 28%
         ),
         linear-gradient(
             135deg,
-            #030712,
+            #02040b,
             #111827,
             #1e1b4b
         );
@@ -496,18 +506,18 @@ body.storm::after {
         rgba(255, 255, 255, 0);
 
     animation:
-        lightning 7s infinite;
+        lightning 8s infinite;
 }
 
 
 @keyframes stormGlow {
 
     from {
-        opacity: 0.25;
+        opacity: 0.2;
     }
 
     to {
-        opacity: 0.6;
+        opacity: 0.55;
     }
 }
 
@@ -515,34 +525,35 @@ body.storm::after {
 @keyframes lightning {
 
     0%,
-    88%,
-    92%,
+    86%,
+    90%,
     100% {
         background:
             rgba(255, 255, 255, 0);
     }
 
-    89% {
+    87% {
         background:
             rgba(255, 255, 255, 0.08);
     }
 
-    90% {
+    88% {
         background:
-            rgba(255, 255, 255, 0.02);
+            rgba(255, 255, 255, 0.015);
     }
 }
 
 
-/* ========================================
-   APP
-======================================== */
+/* =========================================================
+   MAIN DASHBOARD
+   ========================================================= */
 
 .weather-app {
     position: relative;
 
-    width: 100%;
-    max-width: 900px;
+    width: min(1120px, 94vw);
+
+    max-width: 1120px;
 
     padding: 34px;
 
@@ -553,7 +564,7 @@ body.storm::after {
     background:
         linear-gradient(
             145deg,
-            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.105),
             rgba(255, 255, 255, 0.035)
         );
 
@@ -561,14 +572,14 @@ body.storm::after {
         1px solid var(--border);
 
     backdrop-filter:
-        blur(30px);
+        blur(32px);
 
     -webkit-backdrop-filter:
-        blur(30px);
+        blur(32px);
 
     box-shadow:
-        0 35px 100px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 40px 110px var(--shadow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
     animation:
         appEntrance 0.8s
@@ -587,16 +598,16 @@ body.storm::after {
     position: absolute;
 
     top: 0;
-    left: 10%;
+    left: 8%;
 
-    width: 80%;
+    width: 84%;
     height: 1px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.4),
+            rgba(255, 255, 255, 0.38),
             transparent
         );
 }
@@ -622,9 +633,9 @@ body.storm::after {
 }
 
 
-/* ========================================
+/* =========================================================
    HEADER
-======================================== */
+   ========================================================= */
 
 .app-header {
     display: flex;
@@ -633,69 +644,87 @@ body.storm::after {
 
     gap: 16px;
 
-    margin-bottom: 32px;
+    margin-bottom: 30px;
 }
 
 
 .brand-mark {
-    width: 54px;
-    height: 54px;
+    width: 56px;
+    height: 56px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
+    flex-shrink: 0;
+
     border-radius: 17px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.20),
             rgba(255, 255, 255, 0.05)
         );
 
     border:
         1px solid rgba(255, 255, 255, 0.14);
 
-    font-size: 24px;
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+    font-size: 25px;
 
     font-weight: 800;
 
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+.brand-mark:hover {
+    transform:
+        translateY(-3px)
+        rotate(-4deg);
+
     box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.25);
+        0 18px 40px rgba(0, 0, 0, 0.32);
 }
 
 
 .header-text h1 {
     font-size:
-        clamp(25px, 4vw, 34px);
+        clamp(28px, 4vw, 38px);
 
-    letter-spacing:
-        -0.8px;
+    line-height: 1.05;
+
+    letter-spacing: -1px;
 }
 
 
 .eyebrow {
     margin-bottom: 6px;
 
+    color:
+        rgba(186, 230, 253, 0.72);
+
     font-size: 10px;
 
     font-weight: 800;
 
     letter-spacing: 2px;
-
-    color:
-        rgba(186, 230, 253, 0.72);
 }
 
 
-/* ========================================
+/* =========================================================
    SEARCH
-======================================== */
+   ========================================================= */
 
 .search-section {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 
@@ -709,10 +738,13 @@ body.storm::after {
     border-radius: 17px;
 
     background:
-        rgba(0, 0, 0, 0.2);
+        rgba(0, 0, 0, 0.20);
 
     border:
         1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 
@@ -721,7 +753,7 @@ body.storm::after {
 
     min-width: 0;
 
-    padding: 14px;
+    padding: 15px 16px;
 
     border: none;
 
@@ -743,8 +775,14 @@ body.storm::after {
 }
 
 
+.search-box input:focus {
+    background:
+        rgba(255, 255, 255, 0.035);
+}
+
+
 .search-box button {
-    padding: 13px 20px;
+    padding: 14px 23px;
 
     border: none;
 
@@ -765,9 +803,13 @@ body.storm::after {
 
     cursor: pointer;
 
+    box-shadow:
+        0 8px 25px rgba(59, 130, 246, 0.22);
+
     transition:
         transform 0.3s ease,
-        box-shadow 0.3s ease;
+        box-shadow 0.3s ease,
+        filter 0.3s ease;
 }
 
 
@@ -775,24 +817,32 @@ body.storm::after {
     transform:
         translateY(-2px);
 
+    filter:
+        brightness(1.1);
+
     box-shadow:
-        0 12px 30px
-        rgba(59, 130, 246, 0.35);
+        0 13px 32px rgba(59, 130, 246, 0.34);
+}
+
+
+.search-box button:active {
+    transform:
+        scale(0.97);
 }
 
 
 .location-btn {
-    margin-top: 10px;
+    margin-top: 11px;
 
-    padding: 8px 13px;
+    padding: 8px 14px;
 
     border:
-        1px solid rgba(255, 255, 255, 0.1);
+        1px solid rgba(255, 255, 255, 0.10);
 
     border-radius: 10px;
 
     background:
-        rgba(255, 255, 255, 0.05);
+        rgba(255, 255, 255, 0.045);
 
     color:
         rgba(226, 232, 240, 0.75);
@@ -807,19 +857,19 @@ body.storm::after {
 
 
 .location-btn:hover {
-    background:
-        rgba(255, 255, 255, 0.1);
-
-    color: white;
-
     transform:
         translateY(-2px);
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    color: white;
 }
 
 
-/* ========================================
+/* =========================================================
    STATUS
-======================================== */
+   ========================================================= */
 
 .loading-message,
 .error-message {
@@ -845,9 +895,9 @@ body.storm::after {
 }
 
 
-/* ========================================
-   WEATHER
-======================================== */
+/* =========================================================
+   CURRENT WEATHER
+   ========================================================= */
 
 .weather-result {
     animation:
@@ -867,7 +917,7 @@ body.storm::after {
         opacity: 0;
 
         transform:
-            translateY(15px);
+            translateY(18px);
     }
 
     to {
@@ -888,23 +938,23 @@ body.storm::after {
     align-items:
         flex-start;
 
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 
 .result-heading h2 {
-    margin-top: 3px;
+    margin-top: 4px;
 
     font-size:
-        clamp(25px, 5vw, 34px);
+        clamp(28px, 4vw, 38px);
 
     letter-spacing:
-        -0.8px;
+        -1px;
 }
 
 
 #dateTime {
-    margin-top: 7px;
+    margin-top: 8px;
 
     color: var(--muted);
 
@@ -919,7 +969,7 @@ body.storm::after {
 
     gap: 7px;
 
-    padding: 6px 9px;
+    padding: 7px 11px;
 
     border-radius: 30px;
 
@@ -952,8 +1002,7 @@ body.storm::after {
         0 0 12px #34d399;
 
     animation:
-        livePulse 1.8s
-        ease-in-out infinite;
+        livePulse 1.8s ease-in-out infinite;
 }
 
 
@@ -976,33 +1025,64 @@ body.storm::after {
 }
 
 
-/* ========================================
-   HERO
-======================================== */
+/* =========================================================
+   WEATHER HERO
+   ========================================================= */
 
 .weather-hero {
     position: relative;
 
-    display: flex;
+    display: grid;
+
+    grid-template-columns:
+        1fr 1.2fr;
 
     align-items: center;
 
-    justify-content: center;
+    gap: 35px;
 
-    gap: 45px;
+    min-height: 280px;
 
-    min-height: 235px;
+    padding: 35px 45px;
 
-    padding: 30px 20px;
+    margin-bottom: 14px;
 
-    margin-bottom: 15px;
-
-    border-radius: 25px;
-
-    background:
-        rgba(255, 255, 255, 0.025);
+    border-radius: 26px;
 
     overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(56, 189, 248, 0.08),
+            transparent 35%
+        ),
+        rgba(255, 255, 255, 0.035);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.07);
+}
+
+
+.weather-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    left: 12%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(56, 189, 248, 0.05);
+
+    filter: blur(70px);
+
+    animation:
+        heroGlow 7s ease-in-out infinite alternate;
 }
 
 
@@ -1011,19 +1091,20 @@ body.storm::after {
 
     position: absolute;
 
-    width: 240px;
-    height: 240px;
+    width: 250px;
+    height: 250px;
+
+    right: 5%;
 
     border-radius: 50%;
 
     background:
-        rgba(56, 189, 248, 0.05);
+        rgba(99, 102, 241, 0.05);
 
-    filter: blur(60px);
+    filter: blur(70px);
 
     animation:
-        heroGlow 6s
-        ease-in-out infinite alternate;
+        heroGlowReverse 8s ease-in-out infinite alternate;
 }
 
 
@@ -1031,12 +1112,30 @@ body.storm::after {
 
     from {
         transform:
-            translateX(-40px);
+            translateX(-30px)
+            scale(0.9);
     }
 
     to {
         transform:
-            translateX(40px);
+            translateX(40px)
+            scale(1.12);
+    }
+}
+
+
+@keyframes heroGlowReverse {
+
+    from {
+        transform:
+            translateX(30px)
+            scale(1);
+    }
+
+    to {
+        transform:
+            translateX(-40px)
+            scale(1.12);
     }
 }
 
@@ -1044,38 +1143,41 @@ body.storm::after {
 .weather-icon {
     position: relative;
 
-    z-index: 1;
+    z-index: 2;
 
-    width: 145px;
-    height: 145px;
+    width: 185px;
+    height: 185px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    border-radius: 38px;
+    margin: auto;
+
+    border-radius: 45px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255, 255, 255, 0.12),
-            rgba(255, 255, 255, 0.035)
+            rgba(255, 255, 255, 0.14),
+            rgba(255, 255, 255, 0.045)
         );
 
     border:
-        1px solid rgba(255, 255, 255, 0.12);
+        1px solid rgba(255, 255, 255, 0.13);
 
     box-shadow:
-        0 20px 50px
-        rgba(0, 0, 0, 0.25);
+        0 25px 60px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
 
-    font-size: 78px;
+    font-size: 96px;
 
     animation:
-        weatherFloat 5s
-        ease-in-out infinite;
+        weatherFloat 5s ease-in-out infinite;
+
+    transition:
+        transform 0.5s ease;
 }
 
 
@@ -1084,12 +1186,14 @@ body.storm::after {
     0%,
     100% {
         transform:
-            translateY(0);
+            translateY(0)
+            rotate(0deg);
     }
 
     50% {
         transform:
-            translateY(-8px);
+            translateY(-9px)
+            rotate(1deg);
     }
 }
 
@@ -1097,7 +1201,7 @@ body.storm::after {
 .temperature-section {
     position: relative;
 
-    z-index: 1;
+    z-index: 2;
 
     text-align: left;
 }
@@ -1108,25 +1212,26 @@ body.storm::after {
 
     align-items: flex-end;
 
-    gap: 15px;
+    gap: 17px;
 }
 
 
 .temperature-section h3 {
     font-size:
-        clamp(65px, 10vw, 92px);
+        clamp(80px, 10vw, 108px);
 
-    line-height: 0.9;
+    line-height: 0.85;
 
     font-weight: 300;
 
-    letter-spacing: -5px;
+    letter-spacing: -6px;
 
     background:
         linear-gradient(
             180deg,
-            #ffffff,
-            #cbd5e1
+            #ffffff 0%,
+            #dbeafe 50%,
+            #94a3b8 100%
         );
 
     -webkit-background-clip:
@@ -1136,47 +1241,68 @@ body.storm::after {
         text;
 
     color: transparent;
+
+    animation:
+        temperatureReveal 0.8s ease;
+}
+
+
+@keyframes temperatureReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
 }
 
 
 .temperature-section > p {
-    margin-top: 17px;
+    margin-top: 19px;
 
     color:
-        rgba(226, 232, 240, 0.72);
+        rgba(226, 232, 240, 0.74);
 
-    font-size: 16px;
+    font-size: 17px;
 
     text-transform: capitalize;
 }
 
 
-/* ========================================
-   UNIT
-======================================== */
+/* =========================================================
+   UNIT TOGGLE
+   ========================================================= */
 
 .unit-toggle {
     display: flex;
 
-    gap: 4px;
+    gap: 5px;
 
-    margin-bottom: 5px;
+    margin-bottom: 7px;
 }
 
 
 .unit-btn {
-    padding: 6px 9px;
+    padding: 7px 10px;
 
     border:
         1px solid rgba(255, 255, 255, 0.12);
 
-    border-radius: 7px;
+    border-radius: 8px;
 
     background:
-        rgba(255, 255, 255, 0.04);
+        rgba(255, 255, 255, 0.045);
 
     color:
-        rgba(226, 232, 240, 0.65);
+        rgba(226, 232, 240, 0.60);
 
     font-size: 10px;
 
@@ -1187,48 +1313,70 @@ body.storm::after {
 }
 
 
-.unit-btn.active {
-    background:
-        rgba(255, 255, 255, 0.14);
-
+.unit-btn:hover {
     color: white;
+
+    background:
+        rgba(255, 255, 255, 0.09);
 }
 
 
-/* ========================================
-   DETAILS
-======================================== */
+.unit-btn.active {
+    color: white;
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    border-color:
+        rgba(255, 255, 255, 0.20);
+}
+
+
+/* =========================================================
+   WEATHER DETAILS
+   ========================================================= */
 
 .weather-details {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3, minmax(0, 1fr));
 
-    gap: 10px;
+    gap: 12px;
 }
 
 
 .detail {
+    min-height: 88px;
+
     display: flex;
 
     align-items: center;
 
-    gap: 11px;
+    gap: 14px;
 
-    padding: 15px;
+    padding: 18px;
 
-    border-radius: 17px;
+    border-radius: 18px;
 
     background:
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid rgba(255, 255, 255, 0.08);
+        1px solid rgba(255, 255, 255, 0.075);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
 
     transition:
-        transform 0.35s ease,
-        background 0.35s ease;
+        transform 0.35s cubic-bezier(
+            0.16,
+            1,
+            0.3,
+            1
+        ),
+        background 0.35s ease,
+        border-color 0.35s ease;
 }
 
 
@@ -1238,27 +1386,29 @@ body.storm::after {
 
     background:
         rgba(255, 255, 255, 0.085);
+
+    border-color:
+        rgba(255, 255, 255, 0.15);
 }
 
 
 .detail-icon {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     flex-shrink: 0;
 
-    border-radius: 11px;
+    border-radius: 12px;
 
     background:
-        rgba(255, 255, 255, 0.065);
+        rgba(255, 255, 255, 0.07);
 
-    font-size: 16px;
+    font-size: 18px;
 
     transition:
         transform 0.3s ease;
@@ -1275,7 +1425,7 @@ body.storm::after {
 .detail span {
     display: block;
 
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 
     color: var(--muted);
 
@@ -1284,15 +1434,15 @@ body.storm::after {
 
 
 .detail p {
-    font-size: 14px;
+    font-size: 15px;
 
     font-weight: 700;
 }
 
 
-/* ========================================
-   SUN
-======================================== */
+/* =========================================================
+   SUNRISE / SUNSET
+   ========================================================= */
 
 .sun-section {
     display: grid;
@@ -1300,9 +1450,9 @@ body.storm::after {
     grid-template-columns:
         repeat(2, 1fr);
 
-    gap: 10px;
+    gap: 12px;
 
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 
@@ -1311,61 +1461,99 @@ body.storm::after {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 14px;
 
-    padding: 15px;
+    min-height: 72px;
 
-    border-radius: 17px;
+    padding: 16px 18px;
+
+    border-radius: 18px;
 
     background:
-        rgba(255, 255, 255, 0.05);
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.065),
+            rgba(255, 255, 255, 0.025)
+        );
 
     border:
-        1px solid rgba(255, 255, 255, 0.08);
+        1px solid rgba(255, 255, 255, 0.075);
 
     transition:
-        transform 0.3s ease;
+        transform 0.3s ease,
+        background 0.3s ease;
 }
 
 
 .sun-card:hover {
     transform:
         translateY(-3px);
+
+    background:
+        rgba(255, 255, 255, 0.09);
 }
 
 
 .sun-icon {
-    font-size: 25px;
+    font-size: 28px;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(251, 191, 36, 0.25)
+        );
 }
 
 
-/* ========================================
+.sun-card span:not(.sun-icon) {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+.sun-card strong {
+    font-size: 15px;
+}
+
+
+/* =========================================================
    FORECAST
-======================================== */
+   ========================================================= */
 
 .forecast-section {
-    margin-top: 30px;
+    margin-top: 34px;
 }
 
 
 .section-heading {
-    margin-bottom: 13px;
+    margin-bottom: 15px;
 }
 
 
 .section-heading h3 {
-    font-size: 17px;
+    font-size: 18px;
+
+    letter-spacing: -0.2px;
 }
 
+
+/* =========================================================
+   HOURLY FORECAST
+   ========================================================= */
 
 .hourly-forecast {
     display: flex;
 
-    gap: 8px;
+    gap: 10px;
 
     overflow-x: auto;
 
-    padding: 3px 2px 10px;
+    padding: 3px 3px 12px;
 
     scrollbar-width: none;
 }
@@ -1377,105 +1565,144 @@ body.storm::after {
 
 
 .hourly-card {
-    min-width: 82px;
+    min-width: 100px;
 
-    padding: 14px 9px;
+    padding: 17px 11px;
 
     text-align: center;
 
-    border-radius: 15px;
+    border-radius: 17px;
 
     background:
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid rgba(255, 255, 255, 0.07);
+        1px solid rgba(255, 255, 255, 0.075);
 
     transition:
         transform 0.3s ease,
-        background 0.3s ease;
+        background 0.3s ease,
+        border-color 0.3s ease;
 }
 
 
 .hourly-card:hover {
     transform:
-        translateY(-5px);
+        translateY(-6px);
 
     background:
         rgba(255, 255, 255, 0.09);
+
+    border-color:
+        rgba(255, 255, 255, 0.14);
 }
 
 
 .hourly-card .hour {
     color: var(--muted);
 
-    font-size: 10px;
+    font-size: 11px;
 }
 
 
 .hourly-card .hour-icon {
-    margin: 10px 0;
+    margin: 12px 0;
 
-    font-size: 24px;
+    font-size: 28px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.hourly-card:hover .hour-icon {
+    transform:
+        scale(1.15)
+        translateY(-2px);
 }
 
 
 .hourly-card .hour-temp {
-    font-size: 13px;
+    font-size: 14px;
 
     font-weight: 700;
 }
 
 
+/* =========================================================
+   DAILY FORECAST
+   ========================================================= */
+
 .daily-forecast {
     display: grid;
 
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(5, minmax(0, 1fr));
 
-    gap: 8px;
+    gap: 10px;
 }
 
 
 .daily-card {
-    padding: 15px 9px;
+    min-height: 145px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 17px 10px;
 
     text-align: center;
 
-    border-radius: 16px;
+    border-radius: 17px;
 
     background:
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid rgba(255, 255, 255, 0.07);
+        1px solid rgba(255, 255, 255, 0.075);
 
     transition:
         transform 0.3s ease,
-        background 0.3s ease;
+        background 0.3s ease,
+        border-color 0.3s ease;
 }
 
 
 .daily-card:hover {
     transform:
-        translateY(-5px);
+        translateY(-6px);
 
     background:
         rgba(255, 255, 255, 0.09);
+
+    border-color:
+        rgba(255, 255, 255, 0.14);
 }
 
 
 .daily-card .day {
     color: var(--muted);
 
-    font-size: 10px;
+    font-size: 11px;
 }
 
 
 .daily-card .day-icon {
-    margin: 11px 0;
+    margin: 12px 0;
 
-    font-size: 27px;
+    font-size: 32px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.daily-card:hover .day-icon {
+    transform:
+        scale(1.15);
 }
 
 
@@ -1484,9 +1711,9 @@ body.storm::after {
 
     justify-content: center;
 
-    gap: 7px;
+    gap: 8px;
 
-    font-size: 12px;
+    font-size: 13px;
 
     font-weight: 700;
 }
@@ -1494,18 +1721,18 @@ body.storm::after {
 
 .daily-card .low {
     color:
-        rgba(226, 232, 240, 0.4);
+        rgba(226, 232, 240, 0.42);
 }
 
 
-/* ========================================
+/* =========================================================
    RECENT SEARCHES
-======================================== */
+   ========================================================= */
 
 .recent-searches {
-    margin-top: 30px;
+    margin-top: 34px;
 
-    padding-top: 22px;
+    padding-top: 24px;
 
     border-top:
         1px solid rgba(255, 255, 255, 0.08);
@@ -1517,22 +1744,22 @@ body.storm::after {
 
     flex-wrap: wrap;
 
-    gap: 7px;
+    gap: 8px;
 
     list-style: none;
 }
 
 
 .recent-searches li {
-    padding: 8px 12px;
+    padding: 9px 13px;
 
-    border-radius: 9px;
+    border-radius: 10px;
 
     background:
         rgba(255, 255, 255, 0.045);
 
     border:
-        1px solid rgba(255, 255, 255, 0.07);
+        1px solid rgba(255, 255, 255, 0.075);
 
     color:
         rgba(226, 232, 240, 0.72);
@@ -1542,29 +1769,31 @@ body.storm::after {
     cursor: pointer;
 
     transition:
-        all 0.3s ease;
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
 }
 
 
 .recent-searches li:hover {
-    color: white;
-
     transform:
         translateY(-3px);
 
     background:
-        rgba(255, 255, 255, 0.09);
+        rgba(255, 255, 255, 0.10);
+
+    color: white;
 }
 
 
-/* ========================================
+/* =========================================================
    FOOTER
-======================================== */
+   ========================================================= */
 
 footer {
-    margin-top: 30px;
+    margin-top: 34px;
 
-    padding-top: 20px;
+    padding-top: 22px;
 
     text-align: center;
 
@@ -1589,47 +1818,135 @@ footer span {
 }
 
 
-/* ========================================
-   MOBILE
-======================================== */
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
 
-@media (max-width: 750px) {
+@media (min-width: 1200px) {
 
     body {
-        padding: 15px;
+        padding-top: 45px;
     }
 
     .weather-app {
-        padding: 25px 20px;
+        padding: 40px;
     }
 
-    .weather-details {
-        grid-template-columns:
-            repeat(2, 1fr);
+    .weather-hero {
+        min-height: 310px;
+
+        padding:
+            40px 65px;
     }
 
-    .daily-forecast {
-        display: flex;
+    .weather-icon {
+        width: 200px;
+        height: 200px;
 
-        overflow-x: auto;
-
-        scrollbar-width: none;
+        font-size: 105px;
     }
 
-    .daily-card {
-        min-width: 100px;
+    .detail {
+        min-height: 95px;
+
+        padding: 20px;
     }
 }
 
 
-@media (max-width: 550px) {
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    body {
+        padding:
+            25px 15px;
+    }
+
+    .weather-app {
+        width: min(100%, 760px);
+
+        padding: 28px;
+    }
+
+    .weather-hero {
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 20px;
+
+        padding:
+            30px 25px;
+    }
+
+    .weather-icon {
+        width: 155px;
+        height: 155px;
+
+        font-size: 82px;
+    }
+
+    .temperature-section h3 {
+        font-size: 78px;
+    }
+
+    .weather-details {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .daily-forecast {
+        grid-template-columns:
+            repeat(5, 120px);
+
+        overflow-x: auto;
+
+        padding-bottom: 8px;
+
+        scrollbar-width: none;
+    }
+
+    .daily-forecast::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
 
     body {
         padding: 10px;
     }
 
     .weather-app {
-        padding: 22px 15px;
+        width: 100%;
+
+        padding: 22px 16px;
+
+        border-radius: 24px;
+    }
+
+    .app-header {
+        margin-bottom: 24px;
+    }
+
+    .brand-mark {
+        width: 48px;
+        height: 48px;
+
+        border-radius: 14px;
+
+        font-size: 21px;
+    }
+
+    .header-text h1 {
+        font-size: 24px;
     }
 
     .search-box {
@@ -1641,16 +1958,23 @@ footer span {
     }
 
     .weather-hero {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+
+        min-height: auto;
 
         gap: 20px;
+
+        padding:
+            28px 15px;
     }
 
     .weather-icon {
-        width: 115px;
-        height: 115px;
+        width: 125px;
+        height: 125px;
 
-        font-size: 62px;
+        border-radius: 30px;
+
+        font-size: 65px;
     }
 
     .temperature-section {
@@ -1659,42 +1983,105 @@ footer span {
 
     .temperature-row {
         justify-content: center;
+
+        align-items: flex-end;
     }
 
     .temperature-section h3 {
         font-size: 65px;
+
+        letter-spacing: -4px;
+    }
+
+    .temperature-section > p {
+        font-size: 14px;
+    }
+
+    .result-heading h2 {
+        font-size: 27px;
+    }
+
+    .live-indicator {
+        display: none;
     }
 
     .weather-details {
         grid-template-columns:
-            repeat(2, 1fr);
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+    }
+
+    .detail {
+        min-height: 76px;
+
+        padding: 13px 11px;
+
+        gap: 9px;
+    }
+
+    .detail-icon {
+        width: 34px;
+        height: 34px;
+
+        font-size: 15px;
+    }
+
+    .detail span {
+        font-size: 9px;
+    }
+
+    .detail p {
+        font-size: 12px;
     }
 
     .sun-section {
         grid-template-columns: 1fr;
     }
 
-    .live-indicator {
-        display: none;
+    .daily-forecast {
+        grid-template-columns:
+            repeat(5, 105px);
     }
 }
 
 
-@media (max-width: 380px) {
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 390px) {
+
+    .weather-app {
+        padding:
+            20px 13px;
+    }
 
     .weather-details {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .temperature-section h3 {
-        font-size: 55px;
+        font-size: 56px;
+    }
+
+    .weather-icon {
+        width: 110px;
+        height: 110px;
+
+        font-size: 58px;
+    }
+
+    .result-heading h2 {
+        font-size: 24px;
     }
 }
 
 
-/* ========================================
-   REDUCED MOTION
-======================================== */
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
