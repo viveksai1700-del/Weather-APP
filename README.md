@@ -26,9 +26,9 @@ Weather information is retrieved dynamically through an external weather service
 - Weather symbols
 
 ### User Experience
-- City-based weather search
-- Celsius and Fahrenheit conversion
-- Dynamic weather backgrounds
+- City-based weather search.
+- Celsius and Fahrenheit conversion.
+- Dynamic weather backgrounds.
 - Current date and time
 - Loading state while fetching data
 - User-friendly error handling
