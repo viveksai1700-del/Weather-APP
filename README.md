@@ -62,7 +62,7 @@ Weather information is retrieved dynamically through an external weather service
 ```text
 Weather-App/
 │
-├── index.html        # Main application structure
+├── index.html        # Main application structure.
 ├── style.css         # Styling and responsive design
 ├── script.js         # Application logic and API integration
 └── README.md         # Project documentation
