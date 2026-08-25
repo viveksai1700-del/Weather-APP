@@ -32,9 +32,9 @@ Weather information is retrieved dynamically through an external weather service
 - Current date and time.
 - Loading state while fetching data.
 - User-friendly error handling.
-- Search using the Enter key
-- Recent city searches
-- Persistent search history using Local Storage
+- Search using the Enter key.
+- Recent city searches.
+- Persistent search history using Local Storage.
 
 ### Responsive Design
 - Fully responsive layout.
