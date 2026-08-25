@@ -64,5 +64,5 @@ Weather-App/
 │
 ├── index.html        # Main application structure.
 ├── style.css         # Styling and responsive design.
-├── script.js         # Application logic and API integration
+├── script.js         # Application logic and API integration.
 └── README.md         # Project documentation
