@@ -37,11 +37,11 @@ Weather information is retrieved dynamically through an external weather service
 - Persistent search history using Local Storage
 
 ### Responsive Design
-- Fully responsive layout
-- Mobile-friendly interface
-- Adaptive weather information cards
-- Modern glassmorphism UI
-- Smooth transitions and animations
+- Fully responsive layout.
+- Mobile-friendly interface.
+- Adaptive weather information cards.
+- Modern glassmorphism UI.
+- Smooth transitions and animations.
 
 ---
 
