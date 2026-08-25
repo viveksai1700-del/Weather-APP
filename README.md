@@ -29,9 +29,9 @@ Weather information is retrieved dynamically through an external weather service
 - City-based weather search.
 - Celsius and Fahrenheit conversion.
 - Dynamic weather backgrounds.
-- Current date and time
-- Loading state while fetching data
-- User-friendly error handling
+- Current date and time.
+- Loading state while fetching data.
+- User-friendly error handling.
 - Search using the Enter key
 - Recent city searches
 - Persistent search history using Local Storage
