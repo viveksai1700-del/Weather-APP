@@ -55,7 +55,7 @@ Weather data is retrieved dynamically through an external weather service and di
 ```text
 User enters a city.
         ↓
-Application sends API request
+Application sends API request.
         ↓
 Weather data is received
         ↓
