@@ -53,7 +53,7 @@ Weather data is retrieved dynamically through an external weather service and di
 ## How It Works
 
 ```text
-User enters a city
+User enters a city.
         ↓
 Application sends API request
         ↓
