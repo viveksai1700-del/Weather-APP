@@ -57,7 +57,7 @@ User enters a city.
         ↓
 Application sends API request.
         ↓
-Weather data is received
+Weather data is received.
         ↓
 JavaScript processes the response
         ↓
