@@ -59,11 +59,11 @@ Application sends API request.
         ↓
 Weather data is received.
         ↓
-JavaScript processes the response
+JavaScript processes the response.
         ↓
-Weather information is displayed
+Weather information is displayed.
         ↓
-Search is saved to Local Storage
+Search is saved to Local Storage.
 ```
 
 ## What I Learned
