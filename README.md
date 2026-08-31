@@ -16,80 +16,83 @@ Weather data is retrieved dynamically through an external weather service and di
 
 ## Features
 
-### Weather Information
-
-* Real-time weather data
-* Current temperature
-* Feels-like temperature
-* Humidity
-* Wind speed
-* Weather condition and symbols
-
-### User Experience
-
-* Search weather by city
-* Celsius and Fahrenheit conversion
-* Dynamic weather-based backgrounds
-* Current date and time
-* Loading state while fetching data
-* User-friendly error handling
-* Search using the Enter key
-* Recent city searches
-* Persistent search history using Local Storage
-
-### Responsive Design
-
-* Fully responsive layout
-* Mobile-friendly interface
-* Adaptive weather information cards
-* Modern glassmorphism design
-* Smooth transitions and animations
+| Feature             | Description                                                        |
+| ------------------- | ------------------------------------------------------------------ |
+| Real-time Weather   | Displays current weather information for searched cities           |
+| Temperature         | Shows current and feels-like temperature                           |
+| Weather Details     | Displays humidity, wind speed, and weather conditions              |
+| Unit Conversion     | Switch between Celsius and Fahrenheit                              |
+| Dynamic Backgrounds | Changes the visual background based on weather conditions          |
+| Search History      | Stores recently searched cities                                    |
+| Local Storage       | Keeps recent searches after refreshing the page                    |
+| Date & Time         | Displays the current date and time                                 |
+| Loading States      | Provides feedback while weather data is being retrieved            |
+| Error Handling      | Displays user-friendly messages for invalid searches or API errors |
+| Responsive UI       | Works across desktop, tablet, and mobile screens                   |
 
 ## Technologies Used
 
-| Technology    | Purpose                                    |
-| ------------- | ------------------------------------------ |
-| HTML5         | Application structure                      |
-| CSS3          | Styling, responsive design, and animations |
-| JavaScript    | Application logic and API integration      |
-| Fetch API     | Retrieving weather data                    |
-| Local Storage | Storing recent searches                    |
-| Vercel        | Deployment                                 |
+| Technology    | Purpose                                                   |
+| ------------- | --------------------------------------------------------- |
+| HTML5         | Structure and semantic markup                             |
+| CSS3          | Styling, responsive design, animations, and glassmorphism |
+| JavaScript    | Application logic and dynamic UI updates                  |
+| Fetch API     | Retrieving weather data from the external API             |
+| Local Storage | Persisting recent search history                          |
+| Vercel        | Hosting and deployment                                    |
 
 ## Project Structure
 
+| File         | Description                                   |
+| ------------ | --------------------------------------------- |
+| `index.html` | Main application structure                    |
+| `style.css`  | Styling, responsive layouts, and animations   |
+| `script.js`  | Weather API integration and application logic |
+| `README.md`  | Project documentation                         |
+
+## How It Works
+
 ```text
-Weather-APP/
-│
-├── index.html        # Main application structure
-├── style.css         # Styling, responsive design, and animations
-├── script.js         # Application logic and API integration
-└── README.md         # Project documentation
+User enters a city
+        ↓
+Application sends API request
+        ↓
+Weather data is received
+        ↓
+JavaScript processes the response
+        ↓
+Weather information is displayed
+        ↓
+Search is saved to Local Storage
 ```
 
 ## What I Learned
 
-While building this project, I worked with:
-
-* REST APIs and asynchronous JavaScript
-* Fetch API for retrieving external data
-* Browser Local Storage
-* Responsive web design
-* Loading and error states
-* Dynamic UI updates
-* Frontend deployment with Vercel
+| Area            | Skills Practiced                                |
+| --------------- | ----------------------------------------------- |
+| API Integration | Working with external weather APIs              |
+| JavaScript      | Asynchronous operations and dynamic DOM updates |
+| Data Handling   | Processing API responses                        |
+| Browser Storage | Using Local Storage for persistent data         |
+| UI Development  | Building responsive and interactive interfaces  |
+| Error Handling  | Handling invalid searches and failed requests   |
+| Deployment      | Deploying a frontend application using Vercel   |
 
 ## Future Improvements
 
-* Add hourly weather forecasts
-* Add extended weather forecasts
-* Add location-based weather detection
-* Improve accessibility and keyboard navigation
-* Add more detailed weather statistics
+| Planned Improvement | Goal                                                     |
+| ------------------- | -------------------------------------------------------- |
+| Hourly Forecast     | Provide weather predictions throughout the day           |
+| Extended Forecast   | Show upcoming days and weather trends                    |
+| Location Detection  | Automatically detect weather based on user location      |
+| Accessibility       | Improve keyboard navigation and accessibility support    |
+| Weather Statistics  | Add more detailed weather information and visualizations |
 
 ## Author
 
 **Mittapally Sai Vivek**
 
-* GitHub: https://github.com/viveksai1700-del
-* LinkedIn: https://www.linkedin.com/in/saivivek01/
+| Platform | Profile                                 |
+| -------- | --------------------------------------- |
+| GitHub   | https://github.com/viveksai1700-del     |
+| LinkedIn | https://www.linkedin.com/in/saivivek01/ |
